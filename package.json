@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "tailwindcss": "^3.2.4"
+  },
+  "name": "rihla",
+  "description": "This project is a cruise trip booking plateform through which users can book their trip as well as chosing their desired features such as room numbers, room charactristics and the trajectory they prefer to take.",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "build-css": "tailwindcss build public/src/styles.css -o public/css/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sidatii/Rihla.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sidatii/Rihla/issues"
+  },
+  "homepage": "https://github.com/Sidatii/Rihla#readme"
+}

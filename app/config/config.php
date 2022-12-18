@@ -8,6 +8,6 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // URL Root
-  define('URLROOT', 'http://localhost/Rihla.booking/');
+  define('URLROOT', 'http://localhost/Rihla/');
   // Site Name
   define('SITENAME', 'RIHLA');
