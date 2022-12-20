@@ -1,5 +1,5 @@
   <!-- Footer -->
-  <div class="footer flex justify-around bg-gray-300 py-10 shadow-md items-center space-x-4">
+  <div class="footer flex justify-around bg-[#F1F1F1] py-10 shadow-md items-center space-x-4">
     <div class="icons flex justify-center space-x-20">
       <i class="fa-brands fa-twitter"></i>
       <i class="fa-brands fa-linkedin"></i>

@@ -1,4 +1,4 @@
-<nav class="p-6 mx-auto bg-gray-300 shadow-md flex items-center space-x-4 justify-around">
+<nav class="p-6 mx-auto bg-[#F1F1F1] shadow-md flex items-center space-x-4 justify-around">
     <a class="navbar-brand" href="#">
       <img src="<?php echo URLROOT; ?>public/img/Rihla_logo_blue.svg" alt="Rihla logo" width="100px">
     </a>
