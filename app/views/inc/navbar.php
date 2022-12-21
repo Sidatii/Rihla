@@ -5,7 +5,7 @@
     <ul class="flex justify-center space-x-20 font-medium text-[#245BA8] font-alternate subpixel-antialiased">
       <li>
         <i class="fa-light fa-house-blank"></i>
-        <a href="<?php URLROOT;?>Pages/about">About</a>
+        <a href="<?php echo URLROOT; ?>Pages/about">About</a>
       </li>
       <li>
         <a href="#">Home</a>
