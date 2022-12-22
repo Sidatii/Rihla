@@ -13,9 +13,6 @@
         <div class=" bg-[#245BA8] text-white bg-contain w-fit m-10">
             <h2 class=" bg-[#245BA8] text-white bg-contain w-fit flex justify-center text-center">BOOK YOUR TRIP</h2> 
         </div>
-        <!-- <div class="bg-white px-10 py-3 rounded-2xl w-fit flex justify-center text-[#245BA8] mt-20 font-semibold text-2xl">
-            BOOK NOW
-        </div> -->
     </div>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
