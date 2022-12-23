@@ -1,14 +1,14 @@
 <nav class="bg-[#F1F1F1] border-gray-200 px-2 sm:px-4 py-2.5 rounded-b-xl">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="https://flowbite.com/" class="flex items-center">
+            <a href="<?php echo URLROOT .'Pages/index'; ?>" class="flex items-center">
                 <img src="<?php echo URLROOT; ?>public/img/Rihla_logo_blue.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo">
             </a>
             <div class="flex md:order-2 gap-2">
                 <button type="button"
-                    class="text-[#245BA8] border-2 border-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:focus:ring-[#245BA8] sm:text-[12px] sm:px-2 sm:py-1">Sign In</button>
+                    class="text-[#245BA8] border-2 border-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:focus:ring-[#245BA8] sm:text-[12px] sm:px-2 sm:py-1"><a href="<?php echo URLROOT .'Users/login'; ?>">Sign In</a></button>
 
                 <button type="button"
-                    class="text-white bg-[#245BA8] hover:bg-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:bg-[#245BA8] dark:hover:bg-[#245BA8] dark:focus:ring-[#245BA8]">Sign Up</button>
+                    class="text-white bg-[#245BA8] hover:bg-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:bg-[#245BA8] dark:hover:bg-[#245BA8] dark:focus:ring-[#245BA8]"><a href="<?php echo URLROOT .'Users/signup'; ?>">Sign Up</a></button>
 
                     
               
@@ -26,7 +26,7 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
                 <ul
-                    class="flex flex-col p-4 mt-4 border rounded-lg bg-[#F1F1F1] md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-[#F1F1F1] md:dark:bg-[#F1F1F1] dark:border-[#245BA8]">
+                    class="flex flex-col p-4 mt-4 border rounded-lg bg-[#F1F1F1] md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:bg-[#F1F1F1] md:dark:bg-[#F1F1F1] dark:border-[#245BA8]">
                     <li>
                         <a href="<?php echo URLROOT .'Pages/index'; ?>"
                             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:font-semibold md:p-0 dark:text-gray-400 dark:hover:bg-[#245BA8] sm:dark:hover:text-white  md:dark:hover:text-[#245BA8] md:dark:hover:bg-transparent dark:border-gray-700 sm:text-[#245BA8] font-medium font-alternate subpixel-antialiased"
