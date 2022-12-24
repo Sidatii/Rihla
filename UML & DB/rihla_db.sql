@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2022 at 04:30 PM
+-- Generation Time: Dec 24, 2022 at 07:28 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `booking` (
   `ID_booking` int(11) NOT NULL,
-  `croisere` varchar(255) NOT NULL,
+  `ID_cruise` int(11) NOT NULL,
   `booking_date` date NOT NULL,
   `booking_price` float NOT NULL,
   `ID_user` int(11) NOT NULL
@@ -44,10 +44,11 @@ CREATE TABLE `booking` (
 CREATE TABLE `cruise` (
   `ID_croisere` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `ID_ship` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `nights_number` int(11) NOT NULL,
   `departure_port_ID` int(11) NOT NULL,
-  `cruise_itinerary` varchar(255) NOT NULL,
   `departure_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -84,7 +85,7 @@ CREATE TABLE `reserved_features` (
 CREATE TABLE `room` (
   `ID_room` int(11) NOT NULL,
   `ID_ship` int(255) NOT NULL,
-  `room_type` varchar(255) NOT NULL,
+  `room_price` float NOT NULL,
   `ID_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -97,7 +98,6 @@ CREATE TABLE `room` (
 CREATE TABLE `room_types` (
   `ID_type` int(11) NOT NULL,
   `room_type` varchar(255) NOT NULL,
-  `room_price` float NOT NULL,
   `capacity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -112,6 +112,17 @@ CREATE TABLE `ship` (
   `ship_name` varchar(255) NOT NULL,
   `rooms_number` int(11) NOT NULL,
   `spots_number` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trajectory`
+--
+
+CREATE TABLE `trajectory` (
+  `ID_cruise` int(11) NOT NULL,
+  `ID_port` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -138,14 +149,16 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`ID_booking`),
-  ADD KEY `ID_client` (`ID_user`);
+  ADD KEY `ID_client` (`ID_user`),
+  ADD KEY `cruise link` (`ID_cruise`);
 
 --
 -- Indexes for table `cruise`
 --
 ALTER TABLE `cruise`
   ADD PRIMARY KEY (`ID_croisere`),
-  ADD KEY `daparture_port` (`departure_port_ID`);
+  ADD KEY `daparture_port` (`departure_port_ID`),
+  ADD KEY `ship link` (`ID_ship`);
 
 --
 -- Indexes for table `port`
@@ -179,6 +192,13 @@ ALTER TABLE `room_types`
 --
 ALTER TABLE `ship`
   ADD PRIMARY KEY (`ID_ship`);
+
+--
+-- Indexes for table `trajectory`
+--
+ALTER TABLE `trajectory`
+  ADD KEY `ID_port` (`ID_port`),
+  ADD KEY `ID_cruise` (`ID_cruise`);
 
 --
 -- Indexes for table `user`
@@ -240,13 +260,15 @@ ALTER TABLE `user`
 -- Constraints for table `booking`
 --
 ALTER TABLE `booking`
-  ADD CONSTRAINT `ID_client` FOREIGN KEY (`ID_user`) REFERENCES `user` (`ID_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ID_client` FOREIGN KEY (`ID_user`) REFERENCES `user` (`ID_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cruise link` FOREIGN KEY (`ID_cruise`) REFERENCES `cruise` (`ID_croisere`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cruise`
 --
 ALTER TABLE `cruise`
-  ADD CONSTRAINT `daparture_port` FOREIGN KEY (`departure_port_ID`) REFERENCES `port` (`ID_port`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `daparture_port` FOREIGN KEY (`departure_port_ID`) REFERENCES `port` (`ID_port`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ship link` FOREIGN KEY (`ID_ship`) REFERENCES `ship` (`ID_ship`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reserved_features`
@@ -261,6 +283,13 @@ ALTER TABLE `reserved_features`
 ALTER TABLE `room`
   ADD CONSTRAINT `ID_ship` FOREIGN KEY (`ID_ship`) REFERENCES `ship` (`ID_ship`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ID_type` FOREIGN KEY (`ID_type`) REFERENCES `room_types` (`ID_type`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `trajectory`
+--
+ALTER TABLE `trajectory`
+  ADD CONSTRAINT `ID_cruise` FOREIGN KEY (`ID_cruise`) REFERENCES `cruise` (`ID_croisere`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ID_port` FOREIGN KEY (`ID_port`) REFERENCES `port` (`ID_port`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
