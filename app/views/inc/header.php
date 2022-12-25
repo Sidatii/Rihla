@@ -12,5 +12,5 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&family=Source+Sans+Pro:wght@600&family=Titillium+Web&display=swap" rel="stylesheet">
   <title><?php echo SITENAME; ?></title>
 </head>
-<body>
+<body class="w-full">
   

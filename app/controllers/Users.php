@@ -38,6 +38,7 @@ class Users extends Controller
       if ($this->userModel->findUserByEmail($data['email'])) {
         // User found
       } else {
+        // user not found
         $data['email_err'] = 'No user found';
       }
 
@@ -49,11 +50,11 @@ class Users extends Controller
 
         if ($loggedInUser) {
           // Create session
-          die('success');
+          $this->createUserSession($loggedInUser);
         } else {
           $data['password_err'] = 'Incorrect password';
 
-          $this->view('/users/login');
+          $this->view('users/login', $data);
         }
       } else {
         // Load view with errors
@@ -72,6 +73,16 @@ class Users extends Controller
       // Load view
       $this->view('users/login', $data);
     }
+  }
+
+  public function createUserSession($user){
+    $_SESSION['user_id'] = $user->id;
+    $_SESSION['user_email'] = $user->email;
+    $_SESSION['user_fname'] = $user->fname;
+    $_SESSION['user_lname'] = $user->lname;
+    redirect('pages/index');
+
+
   }
 
   public function signup()
