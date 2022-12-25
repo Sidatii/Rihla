@@ -36,28 +36,3 @@
       $this->view('pages/contact', $data);
     }
   }
-
-class Users extends Controller
-{
-  public function __construct()
-  {
-
-  }
-
-  public function login(){
-    $data = [
-      'title' => 'Login'
-    ];
-    echo 'hhhhhhhhhhhhhhhhhh';
-
-    $this->view('pages/login', $data);
-  }
-
-  public function signup(){
-    $data = [
-      'title' => 'signup'
-    ];
-
-    $this->view('pages/signup', $data);
-  }
-}
