@@ -35,4 +35,14 @@
 
       $this->view('pages/contact', $data);
     }
+    public function Dashboard(){
+      $data = [
+        'title' => 'Admin dashboard'
+      ];
+
+      $this->view('pages/dashboard', $data);
+    }
+
   }
+
+    

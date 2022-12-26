@@ -76,13 +76,46 @@ class Users extends Controller
   }
 
   public function createUserSession($user){
-    $_SESSION['user_id'] = $user->id;
+    $_SESSION['user_id'] = $user->ID_user;
     $_SESSION['user_email'] = $user->email;
-    $_SESSION['user_fname'] = $user->fname;
-    $_SESSION['user_lname'] = $user->lname;
+    $_SESSION['user_fname'] = $user->firstName;
+    $_SESSION['user_lname'] = $user->lastName;
+    $_SESSION['user_role'] = $user->role;
+
     redirect('pages/index');
+  }
 
+  public function isAdmin(){
+    if($_SESSION['user_role'] == 1){
+      return 'block';
+    }else{
+      return 'hidden';
+    }
+  }
 
+  public function isUser(){
+    if($_SESSION['user_role'] != 1){
+      return 'block';
+    }else{
+      return 'hidden';
+    }
+  }
+
+  public function logout(){
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user_email']);
+    unset($_SESSION['user_fname']);
+    unset($_SESSION['user_lname']);
+    session_destroy();
+    redirect('users/login');
+  }
+
+  public function isLoggedIn(){
+    if(isset($_SESSION['user_id'])){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function signup()
