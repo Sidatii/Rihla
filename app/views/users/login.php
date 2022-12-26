@@ -4,7 +4,7 @@
     
 </div> -->
 <div class="w-full my-5 max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 mx-auto">
-    <form class="space-y-6" action="<?php echo URLROOT; ?>/users/login" method="POST">
+    <form class="space-y-6" action="<?php echo URLROOT; ?>users/login" method="POST">
         <?php Flash('signup_success');?>
         <h5 class="text-xl font-medium text-[#245BA8] text-center">Sign in</h5>
         <div>

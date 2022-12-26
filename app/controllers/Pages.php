@@ -43,6 +43,30 @@
       $this->view('pages/dashboard', $data);
     }
 
+    public function cruises(){
+      $data = [
+        'title' => 'Edit cruises'
+      ];
+
+      $this->view('pages/cruises', $data);
+    }
+
+    public function ships(){
+      $data = [
+        'title' => 'Edit ships'
+      ];
+
+      $this->view('pages/ships', $data);
+    }
+
+    public function features(){
+      $data = [
+        'title' => 'Edit features'
+      ];
+
+      $this->view('pages/features', $data);
+    }
+
   }
 
     

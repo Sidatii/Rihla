@@ -4,7 +4,7 @@
             <img src="<?php echo URLROOT; ?>public/img/Rihla_logo_blue.svg" class="h-6 mr-3 sm:h-9" alt="Rihla Logo">
         </a>
         <div class="flex md:order-2 gap-2">
-            <div class="<?php echo $_SESSION['isLoggedin']; ?>">
+            <div class="<?=$_SESSION['isLoggedin']; ?>">
                 <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer shadow-md" src="<?php echo URLROOT . 'public/img/Rihla_logo_orange.svg'; ?>" alt="User dropdown">
 
                 <!-- Dropdown menu -->
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="<?php echo $_SESSION['isLoggedin']; ?>">
+            <div class="<?=$_SESSION['guest']; ?>">
                 <button type="button" class="text-[#245BA8] border-2 border-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:focus:ring-[#245BA8] sm:text-[12px] sm:px-2 sm:py-1"><a href="<?php echo URLROOT . 'Users/login'; ?>">Sign In</a></button>
 
                 <button type="button" class="text-white bg-[#245BA8] hover:bg-[#245BA8] focus:outline-none font-medium rounded-2xl text-sm px-3 py-1.5 text-center mr-3 md:mr-0 dark:bg-[#245BA8] dark:hover:bg-[#245BA8] dark:focus:ring-[#245BA8]"><a href="<?php echo URLROOT . 'Users/signup'; ?>">Sign Up</a></button>

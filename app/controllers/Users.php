@@ -9,6 +9,9 @@ class Users extends Controller
 
   public function login()
   {
+    if(isset($_SESSION['user_id'])){
+      redirect('Pages/index');
+    }
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // here we process the form
@@ -48,18 +51,20 @@ class Users extends Controller
         // Check and set logged in user
         $loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
+          
+
         if ($loggedInUser) {
           // Create session
+
           $this->createUserSession($loggedInUser);
-          $_SESSION['isLoggedin'] = '';
+          
+          
 
           if($_SESSION['user_role'] == 1){
-            $_SESSION['is_admin'] = 'block';
             $_SESSION['is_user'] = 'hidden';
           }
           else{
             $_SESSION['is_admin'] = 'hidden';
-            $_SESSION['is_user'] = 'block';
           }
 
         } else {
@@ -92,41 +97,11 @@ class Users extends Controller
     $_SESSION['user_fname'] = $user->firstName;
     $_SESSION['user_lname'] = $user->lastName;
     $_SESSION['user_role'] = $user->role;
-    $_SESSION['isLoggedin'] = 'hidden';
-    $_SESSION['guess'] = '';
-    $_SESSION['is_admin'] = '';
-    $_SESSION['is_user'] = '';
+    $_SESSION['is_admin'] = 'block';
+    $_SESSION['is_user'] = 'block';
 
     redirect('pages/index');
   }
-
-  // public function isAdmin(){
-  //   if($_SESSION['user_role'] == 1){
-  //     $isAdmin = [
-  //     'isAdmin' => 'block'
-  //     ];
-  //     return $isAdmin['isAdmin'];
-  //   }else{
-  //     $isAdmin = [
-  //       'isAdmin' => 'hidden'
-  //       ];
-  //       return $isAdmin['isAdmin'];
-  //   }
-  // }
-
-  // public function isUser(){
-  //   if($_SESSION['user_role'] != 1){
-  //     $isUser = [
-  //       'isUser' => 'block'
-  //       ];
-  //       return $isUser['isUser'];
-  //   }else{
-  //     $isUser = [
-  //       'isUser' => 'hidden'
-  //       ];
-  //       return $isUser['isUser'];
-  //   }
-  // }
 
   public function logout(){
     unset($_SESSION['user_id']);
@@ -137,13 +112,6 @@ class Users extends Controller
     redirect('users/login');
   }
 
-  public function isLoggedIn(){
-    if(isset($_SESSION['user_id'])){
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   public function signup()
   {
