@@ -51,6 +51,17 @@ class Users extends Controller
         if ($loggedInUser) {
           // Create session
           $this->createUserSession($loggedInUser);
+          $_SESSION['isLoggedin'] = '';
+
+          if($_SESSION['user_role'] == 1){
+            $_SESSION['is_admin'] = 'block';
+            $_SESSION['is_user'] = 'hidden';
+          }
+          else{
+            $_SESSION['is_admin'] = 'hidden';
+            $_SESSION['is_user'] = 'block';
+          }
+
         } else {
           $data['password_err'] = 'Incorrect password';
 
@@ -67,7 +78,7 @@ class Users extends Controller
         'email' => '',
         'password' => '',
         'email_err' => '',
-        'password_err' => '',
+        'password_err' => ''
       ];
 
       // Load view
@@ -81,25 +92,41 @@ class Users extends Controller
     $_SESSION['user_fname'] = $user->firstName;
     $_SESSION['user_lname'] = $user->lastName;
     $_SESSION['user_role'] = $user->role;
+    $_SESSION['isLoggedin'] = 'hidden';
+    $_SESSION['guess'] = '';
+    $_SESSION['is_admin'] = '';
+    $_SESSION['is_user'] = '';
 
     redirect('pages/index');
   }
 
-  public function isAdmin(){
-    if($_SESSION['user_role'] == 1){
-      return 'block';
-    }else{
-      return 'hidden';
-    }
-  }
+  // public function isAdmin(){
+  //   if($_SESSION['user_role'] == 1){
+  //     $isAdmin = [
+  //     'isAdmin' => 'block'
+  //     ];
+  //     return $isAdmin['isAdmin'];
+  //   }else{
+  //     $isAdmin = [
+  //       'isAdmin' => 'hidden'
+  //       ];
+  //       return $isAdmin['isAdmin'];
+  //   }
+  // }
 
-  public function isUser(){
-    if($_SESSION['user_role'] != 1){
-      return 'block';
-    }else{
-      return 'hidden';
-    }
-  }
+  // public function isUser(){
+  //   if($_SESSION['user_role'] != 1){
+  //     $isUser = [
+  //       'isUser' => 'block'
+  //       ];
+  //       return $isUser['isUser'];
+  //   }else{
+  //     $isUser = [
+  //       'isUser' => 'hidden'
+  //       ];
+  //       return $isUser['isUser'];
+  //   }
+  // }
 
   public function logout(){
     unset($_SESSION['user_id']);
