@@ -12,9 +12,18 @@ spl_autoload_register(function ($className) {
 });
 $_SESSION['isLoggedin'] = 'hidden';
 $_SESSION['guest'] = 'hidden';
+$_SESSION['is_admin'] = 'hidden';
+$_SESSION['is_user'] = '';
+
+
+
 
 if(isset($_SESSION['user_id'])){
   $_SESSION['isLoggedin'] = '';
+  if($_SESSION['user_role'] == 1){
+    $_SESSION['is_admin'] = '';
+    $_SESSION['is_user'] = 'hidden';
+  }
 }else{
   $_SESSION['guest'] = '';
 }

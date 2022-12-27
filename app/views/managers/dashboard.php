@@ -1,6 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
+
 <div class="border-gray-200 dark:border-gray-700">
     <ul class="flex flex-wrap -mb-4px text-sm font-medium text-center text-gray-500 dark:text-gray-400 justify-center">
     <li class="mr-2">

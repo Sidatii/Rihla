@@ -2,6 +2,7 @@
 class Users extends Controller
 {
   private $userModel;
+  
   public function __construct()
   {
     $this->userModel = $this->model('User');
@@ -55,17 +56,7 @@ class Users extends Controller
 
         if ($loggedInUser) {
           // Create session
-
           $this->createUserSession($loggedInUser);
-          
-          
-
-          if($_SESSION['user_role'] == 1){
-            $_SESSION['is_user'] = 'hidden';
-          }
-          else{
-            $_SESSION['is_admin'] = 'hidden';
-          }
 
         } else {
           $data['password_err'] = 'Incorrect password';
@@ -100,7 +91,12 @@ class Users extends Controller
     $_SESSION['is_admin'] = 'block';
     $_SESSION['is_user'] = 'block';
 
-    redirect('pages/index');
+    if($_SESSION['user_role'] == 1){
+      echo $_SESSION['user_id'];
+        redirect('Managers/index');
+    } else{
+      redirect('pages/index');
+    }
   }
 
   public function logout(){
