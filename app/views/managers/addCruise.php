@@ -1,0 +1,32 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/navbar.php'; ?>
+
+<form action="<?php echo URLROOT . 'Manager/addCruise'?>" method="POST" class="mx-4 my-4 flex flex-col gap-2 bg-[#F1F1F1] p-3 rounded-lg">
+    <div >
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise name</label>
+        <input type="text" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise date</label>
+        <input type="date" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise image</label>
+        <input type="file" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Nights count</label>
+        <input type="number" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Departure port (To edit later)</label>
+        <input type="text" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+        <input type="float" name="cruise_name" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+
+</form>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -45,6 +45,32 @@ class Managers extends Controller{
   
         $this->view('managers/features', $data);
       }
+
+
+      public function addCruise(){
+        $data = [
+          'title' => 'Add cruises'
+        ];
+  
+        $this->view('managers/addCruise', $data);
+      }
+
+      public function addShip(){
+        $data = [
+          'title' => 'Add Ship'
+        ];
+  
+        $this->view('managers/addShip', $data);
+      }
+
+      public function addPort(){
+        $data = [
+          'title' => 'Add cruises'
+        ];
+  
+        $this->view('managers/addPort', $data);
+      }
+
 }
 
 ?>
