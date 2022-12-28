@@ -46,6 +46,7 @@ class User{
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
+        
 
         //check row
         if($this->db->rowCount() > 0){
