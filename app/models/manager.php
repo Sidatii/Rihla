@@ -21,6 +21,19 @@ class Manager{
 
         return $results;
     }
+
+    public function addCruise($data){
+        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `departure_port_ID`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
+
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':price', $data['price']);
+        $this->db->bind(':image', $data['image']);
+        $this->db->bind(':nights', $data['nights']);
+        $this->db->bind(':depPort', $data['depPort']);
+        $this->db->bind(':depDate', $data['depDate']);
+
+        $this->db->execute();
+    }
 }
 
 ?>
