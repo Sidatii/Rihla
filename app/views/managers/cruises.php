@@ -21,12 +21,11 @@
     <?php Flash('prd_updated');?>
     <?php Flash('prd_deleted');?>
 </div>
-
 <div class="flex flex-wrap gap-2 justify-center my-4">
     <?php  foreach($data['cruises'] as $cruise) : ?>
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-            <img class="rounded-t-lg object-cover aspect-video" src="<?php echo URLROOT . 'img/bg_signup.jpg'; ?>" alt="" />
+            <img class="rounded-t-lg object-cover aspect-video" src="<?php echo URLROOT . '/public/img/' . $cruise->image ; ?>" alt="" />
         </a>
         <div class="p-5">
             <h3 class="mb-2 text-center text-xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $cruise->name; ?></h3>

@@ -64,15 +64,15 @@ class Managers extends Controller
   public function addCruise()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      filter_input_array(INPUT_POST);
+      $_POST = filter_input_array(INPUT_POST);
       $data = $_POST;
     }
-      $data['image'] = $_FILES['image']['name'];
+    $data['img'] = $_FILES["image"]["name"];
     
     if($this->managerModel->addCruise($data)){
-      move_uploaded_file($_FILES["image"]["tmp_name"], "./images/" . $data['image']);
+      move_uploaded_file($_FILES["image"]["tmp_name"], "./img/" . $data['img']);
       Flash('prd_added','Your product has been added successfully');
-      redirect('managers/cruises');
+      redirect('Managers/cruises');
     }
     
   }

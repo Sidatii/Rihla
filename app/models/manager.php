@@ -27,12 +27,12 @@ class Manager{
 
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':price', $data['price']);
-        $this->db->bind(':image', $data['image']);
+        $this->db->bind(':image', $data['img']);
         $this->db->bind(':nights', $data['nights']);
         $this->db->bind(':depPort', $data['depPort']);
-        $this->db->bind(':depDate', $data['depDate']);
+        $this->db->bind(':depDate', $data['date']);
 
-        $this->db->execute();
+        return $this->db->execute();
     }
 }
 
