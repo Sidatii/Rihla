@@ -89,7 +89,7 @@ class Managers extends Controller
     }
     if($this->managerModel->updateCruise($data)){
       Flash('cruise_updated', 'Your cruise has been successfully updated');
-      exit();
+      redirect('Managers/cruises');
     }
   }
 

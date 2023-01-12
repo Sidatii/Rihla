@@ -24,6 +24,7 @@
     <?php Flash('prd_added'); ?>
     <?php Flash('prd_updated'); ?>
     <?php Flash('prd_deleted'); ?>
+    <?php Flash('cruise_updated'); ?>
 </CENTER>
 <div class="flex flex-wrap gap-2 justify-center my-4 w-auto">
     <?php foreach ($data['cruises'] as $cruise) : ?>
@@ -60,9 +61,6 @@
                                 </button>
                                 <div class="px-6 py-6 lg:px-8">
                                     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Update cruise</h3>
-                                    <center>
-                                        <?php Flash('cruise_updated'); ?>
-                                    </center>
                                     <form class="space-y-6" method="POST" action="<?php echo URLROOT . 'Managers/updateCruise/' . $cruise->ID_croisere;?>"  enctype="multipart/form-data">
                                         <div>
                                             <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise name</label>
