@@ -77,6 +77,22 @@ class Managers extends Controller
     
   }
 
+  public function updateCruise($id){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // here we process the form
+      // Sanitize POST data
+
+      $_POST = filter_input_array(INPUT_POST);
+      $data = $_POST;
+      $data['id'] = $id;
+      $data['img'] = $_FILES["image"]["name"];
+    }
+    if($this->managerModel->updateCruise($data)){
+      Flash('cruise_updated', 'Your cruise has been successfully updated');
+      exit();
+    }
+  }
+
   public function addShipPage()
   {
     $data = [
