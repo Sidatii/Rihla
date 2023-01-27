@@ -118,4 +118,14 @@ class Managers extends Controller
   public function addPort()
   {
   }
+public function delete($id){
+    if ($this->managerModel->delete($id)){
+        Flash('cruise_deleted', 'Your cruise has been deleted');
+        redirect('managers/cruises');
+
+    }
+
 }
+
+}
+

@@ -9,12 +9,10 @@ class Manager{
 
     public function getCruises(){
         $this->db->query('SELECT * 
-                        -- trajectory.ID_cruise as trajId,
-                        -- cruise.ID_cruise as cruiseId,
-                        FROM cruise
-                        -- INNER JOIN trajectory
-                        -- ON cruise.ID_cruise = trajectory.ID_cruise
-                        -- ORDER BY cruise.departure_date ASC
+                        FROM cruise c
+                        INNER JOIN  port p
+                        ON c.ID_cruise = p.ID_cruise
+                        ORDER BY cruise.departure_date ASC
                         ');
 
         $results = $this->db->resultSet();
@@ -67,6 +65,14 @@ class Manager{
         }
 
     }
-}
 
-?>
+    public function delete($id){
+        $this->db->query('DELETE FROM cruise WHERE ID_croisere=:id');
+        $this->db->bind('id', $id);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
