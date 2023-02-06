@@ -31,6 +31,24 @@
       $this->view('pages/booking', $data);
     }
 
+    public function myBookings(){
+      if(isset($_SESSION['id'])){
+        $bookings = $this->managerModel->getbookings($_SESSION['id']);
+      }
+      if(!empty($bookings)){
+        $data = [
+          'cruises' => $bookings
+        ];
+      }else{
+        $data = [
+          'cruises' => $bookings,
+          'nothing' => 'You have no bookings yet'
+        ];
+      }
+      
+        $this->view('pages/myBookings', $data);
+      }
+
     public function contact(){
       $data = [
         'title' => 'Contact us'

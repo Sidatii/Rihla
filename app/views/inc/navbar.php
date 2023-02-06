@@ -65,6 +65,9 @@
 
                     <a href="<?php echo URLROOT . 'Managers/features'; ?>" class="<?php echo $_SESSION['is_admin'];?> block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:font-semibold md:p-0 dark:text-gray-400 dark:hover:bg-[#245BA8] sm:dark:hover:text-white  md:dark:hover:text-[#245BA8] md:dark:hover:bg-transparent dark:border-gray-700 sm:text-[#245BA8] font-medium font-alternate subpixel-antialiased">Features</a>
                 </li>
+                <li>
+                    <a href="<?php echo URLROOT . 'pages/myBookings'; ?>" class="<?php echo $_SESSION['is_user'];?> block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:font-semibold md:p-0 dark:text-gray-400 dark:hover:bg-[#245BA8] sm:dark:hover:text-white  md:dark:hover:text-[#245BA8] md:dark:hover:bg-transparent dark:border-gray-700 sm:text-[#245BA8] font-medium font-alternate subpixel-antialiased">My Bookings</a>
+                </li>
             </ul>
         </div>
     </div>
