@@ -29,14 +29,18 @@ class Managers extends Controller
     $data = [
       'cruises' => $cruises
     ];
+    // var_dump($data);
+    // die();
 
     $this->view('managers/cruises', $data);
   }
 
   public function ships()
   {
+    // Get cruises
+    $cruises = $this->managerModel->getCruises();
     $data = [
-      'title' => 'Edit ships'
+      'cruises' => $cruises
     ];
 
     $this->view('managers/ships', $data);
@@ -95,8 +99,9 @@ class Managers extends Controller
 
   public function addShipPage()
   {
+    $cruises = $this->managerModel->getCruises();
     $data = [
-      'title' => 'Add Ship'
+      'cruises' => $cruises
     ];
 
     $this->view('managers/addShip', $data);
@@ -104,6 +109,15 @@ class Managers extends Controller
 
   public function addShip()
   {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST);
+      $data = $_POST;
+    }
+      
+    if($this->managerModel->addShip($data)){
+      Flash('flash','Your ship has been added successfully');
+      redirect('Managers/ships');
+    }
   }
 
   public function addPortPage()
@@ -127,5 +141,23 @@ public function delete($id){
 
 }
 
+
+public function deleteShip($id){
+  if ($this->managerModel->deleteShip($id)){
+      Flash('flash', 'Your ship has been deleted');
+      redirect('managers/ships');
+
+  }
+
 }
 
+// public function getUsers(){
+//     $data = $this->managerModel->getUsers();   
+//     header('Access-Control-Allow-Origin: *');
+//     header('Content-type: application/json');
+//     echo json_encode($data);
+// }
+
+
+
+}

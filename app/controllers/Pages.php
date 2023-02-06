@@ -1,7 +1,9 @@
 <?php
   class Pages extends Controller {
+
+  private $managerModel;
     public function __construct(){
-     
+      $this->managerModel = $this->model('Manager');
     }
     
     public function index(){
@@ -21,8 +23,9 @@
     }
 
     public function booking(){
+    $cruises = $this->managerModel->getCruises();
       $data = [
-        'title' => 'Book your trip'
+        'cruises' => $cruises
       ];
 
       $this->view('pages/booking', $data);

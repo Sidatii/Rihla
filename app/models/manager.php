@@ -10,9 +10,9 @@ class Manager{
     public function getCruises(){
         $this->db->query('SELECT * 
                         FROM cruise c
-                        INNER JOIN  port p
-                        ON c.ID_cruise = p.ID_cruise
-                        ORDER BY cruise.departure_date ASC
+                        INNER JOIN  ship p
+                        ON c.ID_croisere = p.ID_cruise
+                        ORDER BY c.departure_date ASC
                         ');
 
         $results = $this->db->resultSet();
@@ -21,7 +21,7 @@ class Manager{
     }
 
     public function addCruise($data){
-        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `departure_port_ID`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
+        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
 
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':price', $data['price']);
@@ -37,7 +37,7 @@ class Manager{
 
         if (empty($data->image)) {
         
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`price`=:price,`departure_port_ID`=:idd WHERE `ID_croisere`=:id');
+            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`price`=:price,`ID_port`=:idd WHERE `ID_croisere`=:id');
             
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':date', $data['date']);
@@ -50,7 +50,7 @@ class Manager{
             return true;
             
         }else{
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`Price`=:price,`departure_port_ID`=:idd,`image`=:img WHERE `ID_croisere`=:id');
+            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`Price`=:price,`ID_port`=:idd,`image`=:img WHERE `ID_croisere`=:id');
     
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':date', $data['date']);
@@ -74,5 +74,25 @@ class Manager{
         }else{
             return false;
         }
+    }
+
+    public function deleteShip($id){
+        $this->db->query('DELETE FROM ship WHERE ID_ship=:id');
+        $this->db->bind('id', $id);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function addShip($data){
+        $this->db->query('INSERT INTO `ship`(`ship_name`, `rooms_count`, `spots_number`, `ID_cruise`) VALUES (:name,:rooms,:spots,:idc)');
+        $this->db->bind(':name', $data['ship_name']);
+        $this->db->bind(':rooms', $data['rooms_count']);
+        $this->db->bind(':spots', $data['spots_count']);
+        $this->db->bind(':idc', $data['IDC']);
+
+        return $this->db->execute();
     }
 }
