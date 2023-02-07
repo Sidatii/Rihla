@@ -2,130 +2,70 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
 
-<style>
-	.barcode {
-		left: 50%;
-		box-shadow: 1px 0 0 1px, 5px 0 0 1px, 10px 0 0 1px, 11px 0 0 1px, 15px 0 0 1px, 18px 0 0 1px, 22px 0 0 1px, 23px 0 0 1px, 26px 0 0 1px, 30px 0 0 1px, 35px 0 0 1px, 37px 0 0 1px, 41px 0 0 1px, 44px 0 0 1px, 47px 0 0 1px, 51px 0 0 1px, 56px 0 0 1px, 59px 0 0 1px, 64px 0 0 1px, 68px 0 0 1px, 72px 0 0 1px, 74px 0 0 1px, 77px 0 0 1px, 81px 0 0 1px, 85px 0 0 1px, 88px 0 0 1px, 92px 0 0 1px, 95px 0 0 1px, 96px 0 0 1px, 97px 0 0 1px, 101px 0 0 1px, 105px 0 0 1px, 109px 0 0 1px, 110px 0 0 1px, 113px 0 0 1px, 116px 0 0 1px, 120px 0 0 1px, 123px 0 0 1px, 127px 0 0 1px, 130px 0 0 1px, 131px 0 0 1px, 134px 0 0 1px, 135px 0 0 1px, 138px 0 0 1px, 141px 0 0 1px, 144px 0 0 1px, 147px 0 0 1px, 148px 0 0 1px, 151px 0 0 1px, 155px 0 0 1px, 158px 0 0 1px, 162px 0 0 1px, 165px 0 0 1px, 168px 0 0 1px, 173px 0 0 1px, 176px 0 0 1px, 177px 0 0 1px, 180px 0 0 1px;
-		display: inline-block;
-		transform: translateX(-90px);
-	}
-</style>
-<div class="flex flex-col items-center justify-center min-h-screen bg-center bg-cover">
-	<div class="max-w-md w-full h-full mx-auto z-10 bg-blue-900 rounded-3xl">
-		<div class="flex flex-col">
-			<div class="bg-white relative drop-shadow-2xl  rounded-3xl p-4 m-4">
-				<div class="flex-none sm:flex">
-					<div class=" relative h-32 w-32   sm:mb-0 mb-3 hidden">
-						<img src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg" alt="aji" class=" w-32 h-32 object-cover rounded-2xl">
-						<a href="#"
-							class="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-								class="h-4 w-4">
-								<path
-									d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-								</path>
-							</svg>
-						</a>
+<div class="flex justify-center uppercase font-bold text-gray-500 pt-10"><H1>Your bookings</H1></div>
+<?php if(!empty($data['nothing'])) :?>
+	<h3 class="flex justify-center font-bold text-gray-500 pt-10"><?php echo $data['nothing'] ;?></h3>
+
+<?php endif ;?>
+
+<?php if (!empty($data['bookings'])) : ?>
+	<?php foreach ($data['bookings'] as $booking) : ?>
+		<div class="p-10">
+			<div class="max-w-full  bg-white flex flex-col rounded overflow-hidden shadow-lg">
+				<div class="flex flex-row items-baseline flex-nowrap bg-gray-100 p-2">
+					<i class="fa fa-solid fa-sailboat"></i>
+					<h1 class="ml-2 uppercase font-bold text-gray-500">Departure</h1>
+					<p class="ml-2 font-normal text-gray-500"><?php echo $booking->departure_date; ?></p>
+				</div>
+				<div class="mt-2 flex justify-start bg-white p-2">
+					<div class="flex mx-2 ml-6 h8 px-2 flex-row items-baseline rounded-full bg-gray-100 p-1">
+						<svg viewBox="0 0 64 64" pointer-events="all" aria-hidden="true" class="etiIcon css-jbc4oa" role="presentation" style="fill: rgb(102, 102, 102); height: 12px; width: 12px;">
+							<path d="M43.389 38.269L29.222 61.34a1.152 1.152 0 01-1.064.615H20.99a1.219 1.219 0 01-1.007-.5 1.324 1.324 0 01-.2-1.149L26.2 38.27H11.7l-3.947 6.919a1.209 1.209 0 01-1.092.644H1.285a1.234 1.234 0 01-.895-.392l-.057-.056a1.427 1.427 0 01-.308-1.036L1.789 32 .025 19.656a1.182 1.182 0 01.281-1.009 1.356 1.356 0 01.951-.448l5.4-.027a1.227 1.227 0 01.9.391.85.85 0 01.2.252L11.7 25.73h14.5L19.792 3.7a1.324 1.324 0 01.2-1.149A1.219 1.219 0 0121 2.045h7.168a1.152 1.152 0 011.064.615l14.162 23.071h8.959a17.287 17.287 0 017.839 1.791Q63.777 29.315 64 32q-.224 2.685-3.807 4.478a17.282 17.282 0 01-7.84 1.793h-9.016z"></path>
+						</svg>
+						<p class="font-normal text-sm ml-1 text-gray-500">Ticket ID: <?php echo $booking->ID_booking; ?></p>
 					</div>
-					<div class="flex-auto justify-evenly">
-						<div class="flex items-center justify-between">
-							<div class="flex items-center  my-1">
-								<span class="mr-3 rounded-full bg-white w-8 h-8">
-    <img src="https://image.winudf.com/v2/image1/Y29tLmJldHMuYWlyaW5kaWEudWlfaWNvbl8xNTU0NTM4MzcxXzA0Mw/icon.png?w=&amp;fakeurl=1" class="h-8 p-1">
-</span>
-								<h2 class="font-medium">Airindia</h2>
-							</div>
-							<div class="ml-auto text-blue-800">A380</div>
-						</div>
-						<div class="border-b border-dashed border-b-2 my-5"></div>
-						<div class="flex items-center">
-							<div class="flex flex-col">
-								<div class="flex-auto text-xs text-gray-400 my-1">
-									<span class="mr-1 ">MO</span><span>19 22</span>
-								</div>
-								<div class="w-full flex-none text-lg text-blue-800 font-bold leading-none">COK</div>
-								<div class="text-xs">Cochi</div>
-
-							</div>
-							<div class="flex flex-col mx-auto">
-								<img src="https://image.winudf.com/v2/image1/Y29tLmJldHMuYWlyaW5kaWEudWlfaWNvbl8xNTU0NTM4MzcxXzA0Mw/icon.png?w=&amp;fakeurl=1" class="w-20 p-1">
-
-								</div>
-								<div class="flex flex-col ">
-									<div class="flex-auto text-xs text-gray-400 my-1">
-										<span class="mr-1">MO</span><span>19 22</span>
-									</div>
-									<div class="w-full flex-none text-lg text-blue-800 font-bold leading-none">DXB</div>
-									<div class="text-xs">Dubai</div>
-
-								</div>
-							</div>
-							<div class="border-b border-dashed border-b-2 my-5 pt-5">
-								<div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -left-2"></div>
-								<div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -right-2"></div>
-							</div>
-							<div class="flex items-center mb-5 p-5 text-sm">
-								<div class="flex flex-col">
-									<span class="text-sm">Flight</span>
-									<div class="font-semibold">Airbus380</div>
-
-								</div>
-								<div class="flex flex-col ml-auto">
-									<span class="text-sm">Gate</span>
-									<div class="font-semibold">B3</div>
-
-								</div>
-							</div>
-							<div class="flex items-center mb-4 px-5">
-								<div class="flex flex-col text-sm">
-									<span class="">Board</span>
-									<div class="font-semibold">11:50AM</div>
-
-								</div>
-								<div class="flex flex-col mx-auto text-sm">
-									<span class="">Departs</span>
-									<div class="font-semibold">11:30Am</div>
-
-								</div>
-								<div class="flex flex-col text-sm">
-									<span class="">Arrived</span>
-									<div class="font-semibold">2:00PM</div>
-
-								</div>
-							</div>
-							<div class="border-b border-dashed border-b-2 my-5 pt-5">
-								<div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -left-2"></div>
-								<div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -right-2"></div>
-							</div>
-							<div class="flex items-center px-5 pt-3 text-sm">
-								<div class="flex flex-col">
-									<span class="">Passanger</span>
-									<div class="font-semibold">Ajimon</div>
-
-								</div>
-								<div class="flex flex-col mx-auto">
-									<span class="">Class</span>
-									<div class="font-semibold">Economic</div>
-
-								</div>
-								<div class="flex flex-col">
-									<span class="">Seat</span>
-									<div class="font-semibold">12 E</div>
-
-								</div>
-							</div>
-							<div class="flex flex-col py-5  justify-center text-sm ">
-								<h6 class="font-bold text-center">Boarding Pass</h6>
-
-								<div class="barcode h-14 w-0 inline-block mt-4 relative left-auto"></div>
-							</div>
+				</div>
+				<div class="mt-2 flex sm:flex-row mx-6 sm:justify-between flex-wrap ">
+					<div class="flex flex-row place-items-center p-2">
+						<img alt="Rihla" class="w-10 h-10" src="<?php echo URLROOT . 'public/img/Rihla_logo_orange.svg';?>" style="opacity: 1; transform-origin: 0% 50% 0px; transform: none;" />
+						<div class="flex flex-col ml-2">
+							<p class="text-xs text-gray-500 font-bold"><?php echo $booking->ship_name; ?></p>
+							<p class="text-xs text-gray-500">Booking Date: <?php echo $booking->booking_date;?></p>
+							<div class="text-xs text-gray-500">Depatrure Port: <?php echo $booking->port_name;?></div>
 						</div>
 					</div>
+
+					<div class="flex flex-col p-2">
+						<p class="text-xs text-gray-500 font-bold">Distination: <?php echo $booking->distination;?></p>
+						<p class="text-xs text-gray-500 font-bold"><span class="">Trip duration: <?php echo $booking->nights_number;?> Nights</span></p>
+					</div>
+					<div class="flex flex-col flex-wrap p-2">
+						<p class="text-xs text-gray-500 font-bold">Room type: <?php echo $booking->room_type;?></p>
+						<p class="text-xs text-gray-500 font-bold"><span class="font-bold">Price: Dh</span> <?php echo $booking->room_price;?></p>
+						<p class="text-xs text-gray-500 font-bold">Capacity: <?php echo $booking->capacity;?> Ppl</p>
+						<p class="text-xs text-gray-500 font-bold">Room No: <?php echo $booking->ID_room;?></p>
+					</div>
+				</div>
+				<div class="mt-4 bg-gray-100 flex flex-row flex-wrap md:flex-nowrap justify-between items-baseline">
+					<div class="flex mx-6 py-4 flex-row flex-wrap">
+						<img class="w-12 h-10 p-2 mx-2 self-center rounded-full fill-current text-white" src="<?php echo URLROOT . 'public/img/Rihla_logo_blue.svg';?>">
+						<div class="text-sm mx-2 flex flex-col">
+							<p class=""><?php echo $_SESSION['user_fname'] . $_SESSION['user_lname'];?></p>
+							<p class="font-bold">Price: <?php echo $booking->room_price * 1.5;?> Dh</p>
+							<p class="text-xs text-gray-500">Price per adult</p>
+						</div>
+						
+					</div>
+					
 				</div>
 			</div>
 		</div>
+	<?php endforeach; ?>
+<?php endif; ?>
 
-	</div>
-</div>
+<!-- component -->
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+<!-- ALTER VIEW `bookingdetails` AS SELECT b.ID_booking, b.ID_cruise, b.booking_date, b.booking_price, b.ID_user, b.ID_room, c.name, c.price, c.nights_number, c.image, c.departure_date, c.distination, r.ID_ship, r.room_price, t.room_type, t.capacity, p.name, p.pays FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_croisere INNER JOIN port p ON c.ID_port=p.ID_port INNER JOIN room r ON b.ID_room = r.ID_room INNER JOIN room_types t ON r.ID_type=t.ID_type -->

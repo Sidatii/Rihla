@@ -28,6 +28,7 @@
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Departure port: <?php echo $cruise->ID_port; ?></p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Nights Count: <?php echo $cruise->nights_number; ?>.</p>
                     <strong class="mb-3 font-normal text-gray-700 dark:text-gray-400">Price: <?php echo $cruise->price; ?> dh</strong>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Distination: <?php echo $cruise->distination; ?>.</p>
                 </div>
                 <div class="flex gap-2 justify-center">
 

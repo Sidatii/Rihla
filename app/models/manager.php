@@ -20,12 +20,34 @@ class Manager{
         return $results;
     }
 
-    public function myBookings($id){
-        $this->db->query('SELECT * FROM booking b INNER JOIN room r ON b.ID_room=r.ID_room INNER JOIN room_types t ON r.ID_type=t.ID_type HAVING user_ID = :id');
+    public function cruiseInfos($id){
+        $this->db->query('SELECT * FROM bookingDetails WHERE ID_cruise = :id');
         $this->db->bind(':id', $id);
         $booking = $this->db->resultSet();
         if($this->db->rowCount() > 0){
             return $booking;
+        }else{
+            return false;
+        }
+    }
+
+    public function getBookings($id){
+        $this->db->query('SELECT * FROM bookingDetails WHERE ID_user = :id');
+        $this->db->bind(':id', $id);
+        $booking = $this->db->resultSet();
+        if($this->db->rowCount() > 0){
+            return $booking;
+        }else{
+            return false;
+        }
+    }
+
+    public function rooms($id){
+        $this->db->query('SELECT * FROM room r INNER JOIN room_types t ON r.ID_type = t.ID_type where r.ID_ship=:id');
+        $this->db->bind(':id', $id);
+        $rooms = $this->db->resultSet();
+        if($this->db->rowCount() > 0){
+            return $rooms;
         }else{
             return false;
         }
