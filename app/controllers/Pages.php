@@ -70,14 +70,15 @@ class Pages extends Controller
 
   public function cruiseInfos($id){
     $res = $this->managerModel->cruiseInfos($id);
-    // var_dump($res);
+    // var_dump();
     // die();
-    // $room = $this->managerModel->rooms($res->ship_name);
+    $room = $this->managerModel->rooms($res[0]->ID_ship);
 
     $data = [
-      'cruise' => $res
+      'cruise' => $res,
+      'rooms' => $room
     ];
-    $this->view('Pages/cruiseInfos');
+    $this->view('Pages/cruiseInfos', $data);
   }
 
 }

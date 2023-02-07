@@ -1,4 +1,4 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>\album\748dZDqSZy6aPXKcI9H80u
+<?php require APPROOT . '/views/inc/header.php'; ?>
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
 <div class="flex flex-wrap gap-2 justify-center my-4 w-auto">
