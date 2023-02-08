@@ -78,7 +78,22 @@ class Pages extends Controller
       'cruise' => $res,
       'rooms' => $room
     ];
+
     $this->view('Pages/cruiseInfos', $data);
+  }
+
+  public function book($id1, $id2, $p){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      $_POST = filter_input_array(INPUT_POST);
+      $room = $_POST;
+      $price = $p*1.4;
+      if($this->managerModel->book($id1, $id2, $price, $room)){
+        redirect('Pages/booking');
+      }else{
+        return false;
+      }
+
+    }
   }
 
 }

@@ -53,6 +53,20 @@ class Manager{
         }
     }
 
+    public function book($id_cruise, $id_user, $price, $room){
+        $this->db->query('INSERT INTO booking (ID_cruise, booking_price, ID_user, ID_room) VALUES(:id_cruise, :price ,:id_user, :room )');
+        $this->db->bind(':id_cruise', $id_cruise);
+        $this->db->bind(':id_user', $id_user);
+        $this->db->bind(':price', $price);
+        $this->db->bind(':room', $room);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public function addCruise($data){
         $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
 
