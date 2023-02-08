@@ -70,8 +70,6 @@ class Pages extends Controller
 
   public function cruiseInfos($id){
     $res = $this->managerModel->cruiseInfos($id);
-    // var_dump();
-    // die();
     $room = $this->managerModel->rooms($res[0]->ID_ship);
 
     $data = [
@@ -82,12 +80,13 @@ class Pages extends Controller
     $this->view('Pages/cruiseInfos', $data);
   }
 
-  public function book($id1, $id2, $p){
+  public function book($id){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       $_POST = filter_input_array(INPUT_POST);
       $room = $_POST;
-      $price = $p*1.4;
-      if($this->managerModel->book($id1, $id2, $price, $room)){
+      $data = $this->managerModel->cruiseInfos($id);
+      $price = $data[0]->room_price*1.4;
+      if($this->managerModel->book($id, $data[0]->ID_user, $price, $room['room'])){
         redirect('Pages/booking');
       }else{
         return false;
