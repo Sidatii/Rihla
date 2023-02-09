@@ -67,6 +67,22 @@ class Manager{
 
     }
 
+    public function bookingList($id){
+        $this->db->query('SELECT * FROM booking WHERE ID_booking=:id');
+        $this->db->bind(':id', $id);
+        return $this->db->resultSet();
+    }
+
+    public function cancelTicket($id){
+        $this->db->query('DELETE FROM booking WHERE ID_booking = :id');
+        $this->db->bind(':id', $id);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function addCruise($data){
         $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
 

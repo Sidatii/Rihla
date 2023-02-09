@@ -45,6 +45,8 @@ class Pages extends Controller
           'bookings' => $bookings,
           'nothing' => ''
         ];
+        // var_dump($data);
+        // die();
       } else {
         $data = [
           'bookings' => '',
@@ -52,11 +54,9 @@ class Pages extends Controller
         ];
       }
       $this->view('pages/myBookings', $data);
-    }else{
+    } else {
       redirect('Users/login');
     }
-
-   
   }
 
   public function contact()
@@ -68,7 +68,8 @@ class Pages extends Controller
     $this->view('pages/contact', $data);
   }
 
-  public function cruiseInfos($id){
+  public function cruiseInfos($id)
+  {
     $res = $this->managerModel->cruiseInfos($id);
     $room = $this->managerModel->rooms($res[0]->ID_ship);
 
@@ -80,19 +81,39 @@ class Pages extends Controller
     $this->view('Pages/cruiseInfos', $data);
   }
 
-  public function book($id){
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  public function book($id)
+  {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_POST = filter_input_array(INPUT_POST);
       $room = $_POST;
       $data = $this->managerModel->cruiseInfos($id);
-      $price = $data[0]->room_price*1.4;
-      if($this->managerModel->book($id, $data[0]->ID_user, $price, $room['room'])){
+      $price = $data[0]->room_price * 1.4;
+      if ($this->managerModel->book($id, $data[0]->ID_user, $price, $room['room'])) {
+        Flash('flash', 'Your ticket has been booked');
         redirect('Pages/booking');
-      }else{
-        return false;
+      } else {
+        Flash('flash', 'Error: Your ticket has not been booked, please try again later');
+        redirect('Pages/booking');
       }
-
     }
   }
 
+  public function cancelBooking($id)
+  {
+    $bookings = $this->managerModel->bookingList($id);
+    $date = new DateTime($bookings[0]->booking_date);
+    $today = new DateTime(date("Y-m-d"));
+    $interval = $date->diff($today);
+    // var_dump($interval->days);
+    // die();
+    if($interval->days < 2){
+      Flash('flash', 'We are sorry! You can not cancel this ticket');
+      redirect('Pages/myBookings');
+    }else{
+      if($this->managerModel->cancelTicket($id)){
+        Flash('flash', 'Your ticket has been canceled');
+        redirect('Pages/myBookings');
+      }
+    }
+  }
 }
