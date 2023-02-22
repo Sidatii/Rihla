@@ -20,6 +20,33 @@ class Manager{
         return $results;
     }
 
+    public function getShipById($id){
+        $this->db->query('SELECT * FROM ship WHERE ID_ship = :id');
+        $this->db->bind(':id', $id);
+        $ship = $this->db->single();
+        if($this->db->rowCount() > 0){
+            return $ship;
+        }else{
+            return false;
+        }
+    }
+
+    public function getPorts(){
+        $this->db->query('SELECT * FROM port');
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+
+    public function getRooms(){
+        $this->db->query('SELECT distinct room_type, capacity, room_price FROM room inner join room_types on room.ID_type = room_types.ID_type');
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+
     public function cruiseInfos($id){
         $this->db->query('SELECT * FROM bookingDetails WHERE ID_cruise = :id');
         $this->db->bind(':id', $id);
@@ -96,6 +123,15 @@ class Manager{
         return $this->db->execute();
     }
 
+    public function addPort($data){
+        $this->db->query('INSERT INTO `port`(`name`, `pays`) VALUES(:name,:country)');
+
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':country', $data['country']);
+
+        return $this->db->execute();
+    }
+
     public function updateCruise($data){
 
         if (empty($data->image)) {
@@ -155,6 +191,17 @@ class Manager{
         $this->db->bind(':rooms', $data['rooms_count']);
         $this->db->bind(':spots', $data['spots_count']);
         $this->db->bind(':idc', $data['IDC']);
+
+        return $this->db->execute();
+    }
+
+    public function updateShip($data){
+        $this->db->query('UPDATE `ship` SET `ship_name`=:name,`rooms_count`=:rooms,`spots_number`=:spots,`ID_cruise`=:idc WHERE `ID_ship`=:id');
+        $this->db->bind(':name', $data['ship_name']);
+        $this->db->bind(':rooms', $data['rooms_count']);
+        $this->db->bind(':spots', $data['spots_count']);
+        $this->db->bind(':idc', $data['IDC']);
+        $this->db->bind(':id', $data['id']);
 
         return $this->db->execute();
     }

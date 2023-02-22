@@ -35,21 +35,17 @@ class Managers extends Controller
     $this->view('managers/cruises', $data);
   }
 
-  public function ships()
+  public function features()
   {
     // Get cruises
     $cruises = $this->managerModel->getCruises();
-    $data = [
-      'cruises' => $cruises
-    ];
+    $ports = $this->managerModel->getPorts();
+    $rooms = $this->managerModel->getRooms();
 
-    $this->view('managers/ships', $data);
-  }
-
-  public function features()
-  {
     $data = [
-      'title' => 'Edit features'
+      'cruises' => $cruises,
+        'ports' => $ports,
+        'rooms' => $rooms
     ];
 
     $this->view('managers/features', $data);
@@ -97,6 +93,44 @@ class Managers extends Controller
     }
   }
 
+  // Update Ship page
+
+    public function updateShipPage($id){
+        $ship = $this->managerModel->getShipById($id);
+        $cruises = $this->managerModel->getCruises();
+        $data = [
+            'ship' => $ship,
+            'cruises' => $cruises
+        ];
+        $this->view('managers/updateShipPage', $data);
+    }
+
+  // Update Ship
+
+    public function updateShip($id){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // here we process the form
+        // Sanitize POST data
+
+        $_POST = filter_input_array(INPUT_POST);
+        $data = $_POST;
+        $data['id'] = $id;
+        }
+        if($this->managerModel->updateShip($data)){
+        Flash('flash', 'Your ship has been successfully updated');
+        redirect('Managers/features');
+        }
+    }
+
+    // Delete Ship
+
+    public function deleteShip($id){
+        if ($this->managerModel->deleteShip($id)) {
+        Flash('flash', 'Your ship has been successfully deleted');
+        redirect('Managers/features');
+        }
+    }
+
   public function addShipPage()
   {
     $cruises = $this->managerModel->getCruises();
@@ -106,6 +140,7 @@ class Managers extends Controller
 
     $this->view('managers/addShip', $data);
   }
+
 
   public function addShip()
   {
@@ -131,6 +166,14 @@ class Managers extends Controller
 
   public function addPort()
   {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $_POST = filter_input_array(INPUT_POST);
+      $data = $_POST;
+    if($this->managerModel->addPort($data)){
+      Flash('flash','Your port has been added successfully');
+      redirect('Managers/features');
+    }
+    }
   }
 public function delete($id){
     if ($this->managerModel->delete($id)){
@@ -141,13 +184,12 @@ public function delete($id){
 
 }
 
+public function deletePort($id){
+    if ($this->managerModel->deletePort($id)){
+        Flash('port_deleted', 'Your port has been deleted');
+        redirect('managers/features');
 
-public function deleteShip($id){
-  if ($this->managerModel->deleteShip($id)){
-      Flash('flash', 'Your ship has been deleted');
-      redirect('managers/ships');
-
-  }
+    }
 
 }
 

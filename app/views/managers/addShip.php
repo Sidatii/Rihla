@@ -2,7 +2,7 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
 <center>
-<h1 class="mt-4 text-3xl">Add Cruise</h1>
+<h1 class="mt-4 text-3xl">Add ship</h1>
 <div class="container max-w-md">
 <form action="<?php echo URLROOT . 'Managers/addship'?>" method="POST" class="mx-4 my-4 flex flex-col gap-2 bg-[#F1F1F1] p-3 rounded-lg">
     <div >
