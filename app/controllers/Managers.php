@@ -184,6 +184,34 @@ public function delete($id){
 
 }
 
+// Update port page
+
+public function updatePortPage($id){
+    $port = $this->managerModel->getPortById($id);
+//    var_dump($port);
+//    die();
+    $data = [
+        'port' => $port
+    ];
+
+    $this->view('managers/updatePortPage', $data);
+}
+
+public function updatePort($id){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // here we process the form
+    // Sanitize POST data
+
+    $_POST = filter_input_array(INPUT_POST);
+    $data = $_POST;
+    $data['id'] = $id;
+    }
+    if($this->managerModel->updatePort($data)){
+    Flash('flash', 'Your port has been successfully updated');
+    redirect('Managers/features');
+    }
+}
+
 public function deletePort($id){
     if ($this->managerModel->deletePort($id)){
         Flash('port_deleted', 'Your port has been deleted');

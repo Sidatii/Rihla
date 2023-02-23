@@ -39,6 +39,17 @@ class Manager{
         return $results;
     }
 
+    public function getPortById($id){
+        $this->db->query('SELECT * FROM port WHERE ID_port = :id');
+        $this->db->bind(':id', $id);
+        $port = $this->db->single();
+        if($this->db->rowCount() > 0){
+            return $port;
+        }else{
+            return false;
+        }
+    }
+
     public function getRooms(){
         $this->db->query('SELECT distinct room_type, capacity, room_price FROM room inner join room_types on room.ID_type = room_types.ID_type');
 
@@ -201,6 +212,15 @@ class Manager{
         $this->db->bind(':rooms', $data['rooms_count']);
         $this->db->bind(':spots', $data['spots_count']);
         $this->db->bind(':idc', $data['IDC']);
+        $this->db->bind(':id', $data['id']);
+
+        return $this->db->execute();
+    }
+
+    public function updatePort($data){
+        $this->db->query('UPDATE `port` SET `name`=:name,`pays`=:country WHERE `ID_port`=:id');
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':country', $data['country']);
         $this->db->bind(':id', $data['id']);
 
         return $this->db->execute();
