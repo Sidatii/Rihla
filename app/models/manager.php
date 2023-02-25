@@ -225,4 +225,14 @@ class Manager{
 
         return $this->db->execute();
     }
+
+    public function deletePort($id){
+        $this->db->query('DELETE FROM port WHERE ID_port=:id');
+        $this->db->bind('id', $id);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -96,6 +96,8 @@ class Managers extends Controller
   // Update Ship page
 
     public function updateShipPage($id){
+//        var_dump($ship);
+//        die();
         $ship = $this->managerModel->getShipById($id);
         $cruises = $this->managerModel->getCruises();
         $data = [
@@ -188,8 +190,6 @@ public function delete($id){
 
 public function updatePortPage($id){
     $port = $this->managerModel->getPortById($id);
-//    var_dump($port);
-//    die();
     $data = [
         'port' => $port
     ];
@@ -214,19 +214,12 @@ public function updatePort($id){
 
 public function deletePort($id){
     if ($this->managerModel->deletePort($id)){
-        Flash('port_deleted', 'Your port has been deleted');
+        Flash('flash', 'Your port has been deleted');
         redirect('managers/features');
 
     }
 
 }
-
-// public function getUsers(){
-//     $data = $this->managerModel->getUsers();   
-//     header('Access-Control-Allow-Origin: *');
-//     header('Content-type: application/json');
-//     echo json_encode($data);
-// }
 
 
 
