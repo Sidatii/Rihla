@@ -8,12 +8,10 @@ class Manager{
     }
 
     public function getCruises(){
-        $this->db->query('SELECT * 
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays  
                         FROM cruise c
-                        INNER JOIN  ship p
-                        ON c.ID_croisere = p.ID_cruise
-                        ORDER BY c.departure_date ASC
-                        ');
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        ORDER BY c.departure_date ASC');
 
         $results = $this->db->resultSet();
 
@@ -122,7 +120,7 @@ class Manager{
     }
 
     public function addCruise($data){
-        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`) VALUES(:name,:price,:image,:nights,:depPort,:depDate)');
+        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`, `distination`) VALUES(:name,:price,:image,:nights,:depPort,:depDate, :dest)');
 
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':price', $data['price']);
@@ -130,6 +128,7 @@ class Manager{
         $this->db->bind(':nights', $data['nights']);
         $this->db->bind(':depPort', $data['depPort']);
         $this->db->bind(':depDate', $data['date']);
+        $this->db->bind(':dest', $data['destination']);
 
         return $this->db->execute();
     }
@@ -145,9 +144,9 @@ class Manager{
 
     public function updateCruise($data){
 
-        if (empty($data->image)) {
+        if (empty($data['img'])) {
         
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`price`=:price,`ID_port`=:idd WHERE `ID_croisere`=:id');
+            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`price`=:price,`ID_port`=:idd, `distination`=:dest WHERE `ID_croisere`=:id');
             
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':date', $data['date']);
@@ -155,19 +154,21 @@ class Manager{
             $this->db->bind(':price', $data['price']);
             $this->db->bind(':idd', $data['depPort']);
             $this->db->bind(':id', $data['id']);
+            $this->db->bind(':dest', $data['destination']);
             
             $this->db->execute();
             return true;
             
         }else{
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`Price`=:price,`ID_port`=:idd,`image`=:img WHERE `ID_croisere`=:id');
+            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`Price`=:price,`ID_port`=:idd,`image`=:img, `distination`=:dest WHERE `ID_croisere`=:id');
     
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':date', $data['date']);
             $this->db->bind(':nbr', $data['nights']);
             $this->db->bind(':price', $data['price']);
             $this->db->bind(':idd', $data['depPort']);
-            $this->db->bind(':img', $data['image']);
+            $this->db->bind(':img', $data['img']);
+            $this->db->bind(':dest', $data['destination']);
             $this->db->bind(':id', $data['id']);
     
             $this->db->execute();

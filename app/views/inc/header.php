@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/styles.css">
+    <script defer src="<?php echo URLROOT . 'public/js/script.js'; ?>"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/f2acd83396.js" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">

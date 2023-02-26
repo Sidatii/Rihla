@@ -26,11 +26,13 @@ class Managers extends Controller
   {
     // Get cruises
     $cruises = $this->managerModel->getCruises();
+
     $data = [
       'cruises' => $cruises
+
     ];
-    // var_dump($data);
-    // die();
+//     var_dump($data);
+//     die();
 
     $this->view('managers/cruises', $data);
   }
@@ -54,8 +56,9 @@ class Managers extends Controller
 
   public function addCruisePage()
   {
+      $ports = $this->managerModel->getPorts();
     $data = [
-      'title' => 'Add cruises'
+      'ports' => $ports
     ];
 
     $this->view('managers/addCruise', $data);
@@ -71,7 +74,7 @@ class Managers extends Controller
     
     if($this->managerModel->addCruise($data)){
       move_uploaded_file($_FILES["image"]["tmp_name"], "./img/" . $data['img']);
-      Flash('prd_added','Your product has been added successfully');
+      Flash('cruise_added','Your cruise has been added successfully');
       redirect('Managers/cruises');
     }
     

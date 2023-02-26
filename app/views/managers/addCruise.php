@@ -22,12 +22,22 @@
         <input type="number" name="nights" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
     </div>
     <div>
-        <label for="Cruise_depPort" class="block mb-2 text-sm font-medium text-gray-900 ">Departure port (To edit later)</label>
-        <input type="text" name="depPort" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+        <label for="Cruise_depPort" class="block mb-2 text-sm font-medium text-gray-900 ">Departure port</label>
+        <select name="depPort" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500">
+            <?php foreach($data['ports'] as $port):?>
+            <option value="<?php echo $port->ID_port?>">
+                <?php echo $port->name?>
+            </option>
+            <?php endforeach;?>
+        </select>
     </div>
     <div>
-        <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
+        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 ">Price</label>
         <input type="float" name="price" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
+        <label for="destination" class="block mb-2 text-sm font-medium text-gray-900 ">Destination</label>
+        <input type="text" name="destination" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
     </div>
     <button type="submit" class="text-white bg-[#245BA8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#245BA8] dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
 

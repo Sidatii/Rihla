@@ -1,10 +1,9 @@
 const paginationNumbers = document.getElementById("pagination-numbers");
 const paginatedList = document.getElementById("paginated-list");
-const listItems = paginatedList.getElementsByClassName("listItems");
+const listItems = document.getElementsByClassName("listItems");
 const nextButton = document.getElementById("next-button");
 const prevButton = document.getElementById("prev-button");
-
-const paginationLimit = 5;
+const paginationLimit = 3;
 const pageCount = Math.ceil(listItems.length / paginationLimit);
 let currentPage;
 
@@ -15,6 +14,7 @@ const appendPageNumber = (index) => {
     pageNumber.innerHTML = index;
     pageNumber.setAttribute("page-index", index);
     pageNumber.setAttribute("aria-label", "Page " + index);
+    pageNumber.classList.add('px-3','py-2','leading-tight','text-gray-500','bg-white','border','border-gray-300','hover:bg-gray-100','hover:text-gray-700')
     paginationNumbers.appendChild(pageNumber);
 };
 const getPaginationNumbers = () => {
@@ -53,12 +53,18 @@ const setCurrentPage = (pageNum) => {
     const prevRange = (pageNum - 1) * paginationLimit;
     const currRange = pageNum * paginationLimit;
 
-    listItems.forEach((item, index) => {
-        item.classList.add("hidden");
-        if (index >= prevRange && index < currRange) {
-            item.classList.remove("hidden");
+    // listItems.forEach((item, index) => {
+    //     item.classList.add("hidden");
+    //     if (index >= prevRange && index < currRange) {
+    //         item.classList.remove("hidden");
+    //     }
+    // });
+    for (let i = 0; i<listItems.length; i++){
+        listItems[i].classList.add("hidden")
+        if (i >= prevRange && i < currRange) {
+            listItems[i].classList.remove("hidden");
         }
-    });
+    }
 };
 
 const handleActivePageNumber = () => {
