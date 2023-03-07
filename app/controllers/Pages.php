@@ -111,7 +111,7 @@ class Pages extends Controller
     public function cancelBooking($id)
     {
         $bookings = $this->managerModel->bookingList($id);
-        $date = new DateTime($bookings[0]->booking_date);
+        $date = new DateTime($bookings[0]->departure_date);
         $today = new DateTime(date("Y-m-d"));
         $interval = $date->diff($today);
         // var_dump($interval->days);

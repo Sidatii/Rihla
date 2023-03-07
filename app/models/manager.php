@@ -76,6 +76,9 @@ class Manager{
 
     public function cruiseInfos($id){
         $this->db->query('SELECT * FROM cruiseInfo WHERE ID_croisere = :id');
+        // You are here
+        // ############################################
+        // You are here
         $this->db->bind(':id', $id);
         $booking = $this->db->resultSet();
         if($this->db->rowCount() > 0){
@@ -122,7 +125,7 @@ class Manager{
     }
 
     public function bookingList($id){
-        $this->db->query('SELECT * FROM booking WHERE ID_booking=:id');
+        $this->db->query('SELECT * FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_croisere WHERE ID_booking=:id');
         $this->db->bind(':id', $id);
         return $this->db->resultSet();
     }
