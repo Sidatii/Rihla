@@ -11,6 +11,7 @@ class Manager{
         $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.itinerary, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
                         INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
+                        WHERE c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
         return  $this->db->resultSet();
     }
@@ -95,8 +96,9 @@ class Manager{
         }
     }
 
-    public function rooms(){
-        $this->db->query('SELECT * FROM room r INNER JOIN room_types t ON r.ID_type = t.ID_type');
+    public function rooms($id){
+        $this->db->query('SELECT * FROM room r INNER JOIN room_types t ON r.ID_type = t.ID_type INNER JOIN ship s ON r.ID_ship = s.ID_ship where r.ID_ship = :id');
+        $this->db->bind(':id', $id);
         $rooms = $this->db->resultSet();
         if($this->db->rowCount() > 0){
             return $rooms;
@@ -261,8 +263,32 @@ class Manager{
                         FROM cruise c
                         INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
                         where MONTH(c.departure_date) = :month
+                        AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
         $this->db->bind(':month', $month);
+        return  $this->db->resultSet();
+    }
+
+    public function filterByPort($port){
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.itinerary, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number, p.name as port_name, p.pays  
+                        FROM cruise c
+                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        where c.ID_port = :port AND c.departure_date > CURRENT_TIMESTAMP
+                        ORDER BY c.departure_date ASC');
+        $this->db->bind(':port', $port);
+        return  $this->db->resultSet();
+    }
+
+    public function filterByShip($ship){
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.itinerary, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  , p.name as port_name, p.pays
+                        FROM cruise c
+                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        where s.ID_ship = :ship
+                        AND c.departure_date > CURRENT_TIMESTAMP
+                        ORDER BY c.departure_date DESC');
+        $this->db->bind(':ship', $ship);
         return  $this->db->resultSet();
     }
 

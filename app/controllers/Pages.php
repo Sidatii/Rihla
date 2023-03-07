@@ -76,8 +76,9 @@ class Pages extends Controller
     public function cruiseInfos($id)
     {
         $res = $this->managerModel->cruiseInfos($id);
-        $room = $this->managerModel->rooms();
-//    var_dump($room);
+
+        $room = $this->managerModel->rooms($res[0]->ID_ship);
+//    var_dump($res);
 //    die();
 
         $data = [
@@ -91,11 +92,11 @@ class Pages extends Controller
     public function book($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST);
-            $room = $_POST;
+            $room = filter_input_array(INPUT_POST);
             $data = $this->managerModel->cruiseInfos($id);
             $price = $data[0]->room_price * 1.4;
-            if ($this->managerModel->book($id, $data[0]->ID_user, $price, $room['room'])) {
+            $ID_user = $_SESSION['user_id'];
+            if ($this->managerModel->book($id, $ID_user, $price, $room['room'])) {
                 Flash('flash', 'Your ticket has been booked');
                 redirect('Pages/booking');
             } else {
@@ -133,6 +134,24 @@ class Pages extends Controller
             'cruises' => $result
         ];
 
+        echo json_encode($data);
+        die();
+    }
+
+    public function filterByPort($port){
+        $result = $this->managerModel->filterByPort($port);
+        $data = [
+            'cruises' => $result
+        ];
+        echo json_encode($data);
+        die();
+    }
+
+    public function filterByShip($ship){
+        $result = $this->managerModel->filterByShip($ship);
+        $data = [
+            'cruises' => $result
+        ];
         echo json_encode($data);
         die();
     }

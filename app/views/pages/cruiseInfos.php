@@ -61,6 +61,7 @@
     </div>
 </div>
 
+<?php if ($data['rooms']) :?>
 
 <div class="relative overflow-x-hidden shadow-md sm:rounded-lg w-1/2 mx-auto">
     <table class="w-full text-sm text-left ">
@@ -83,7 +84,7 @@
                 </th>
             </tr>
         </thead>
-        <form action="<?php echo URLROOT . 'Pages/book/' . $data['cruise'][0]->ID_cruise; ?>" method="POST">
+        <form action="<?php echo URLROOT . 'Pages/book/' . $data['cruise'][0]->ID_croisere; ?>" method="POST">
         <tbody>
                 <?php foreach ($data['rooms'] as $room) : ?>
                     <tr class="bg-white border-b">
@@ -109,6 +110,11 @@
         </form>
     </table>
 </div>
+<?php else : ?>
+    <div class="w-1/2 mx-auto">
+        <p class="text-center text-2xl">No rooms available</p>
+    </div>
+<?php endif; ?>
 
 
 
