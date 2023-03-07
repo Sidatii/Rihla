@@ -2,7 +2,6 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
 <div class="m-4 flex flex-row justify-center gap-5">
-    
     <a href="<?php echo URLROOT . 'managers/addCruisePage' ?>"><button type="button" class="text-white bg-[#245BA8] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-[#245BA8]">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path>
@@ -16,6 +15,7 @@
     <?php Flash('cruise_updated'); ?>
 </CENTER>
 <div id="paginated-list" aria-live="polite" class="flex flex-wrap gap-2 justify-center my-4 w-auto">
+
     <?php foreach ($data['cruises'] as $cruise) : ?>
         <div class="listItems max-w-sm bg-white border border-gray-200 rounded-lg shadow-md">
             <div class="h-[250px] w-[250px]">

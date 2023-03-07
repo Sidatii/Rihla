@@ -12,7 +12,7 @@
         <div class="py-4 border-b border-gray-200 flex items-center justify-between">
             <p class="text-base leading-4 ">Name</p>
             <div class="flex items-center justify-center">
-                <p class="text-sm leading-none"><?= $data['cruise'][0]->cruise_name; ?></p>
+                <p class="text-sm leading-none"><?= $data['cruise'][0]->name; ?></p>
 
             </div>
         </div>
@@ -20,6 +20,12 @@
             <p class="text-base leading-4 text-gray-800 ">Departure date</p>
             <div class="flex items-center justify-center">
                 <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->departure_date; ?></p>
+            </div>
+        </div>
+        <div class="py-4 border-b border-gray-200 flex items-center justify-between">
+            <p class="text-base leading-4 text-gray-800 ">Itinerary</p>
+            <div class="flex items-center justify-center">
+                <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->itinerary; ?></p>
             </div>
         </div>
         <div class="py-4 border-b border-gray-200 flex items-center justify-between">

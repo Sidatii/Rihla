@@ -40,7 +40,7 @@ class Managers extends Controller
   public function features()
   {
     // Get cruises
-    $cruises = $this->managerModel->getCruises();
+    $cruises = $this->managerModel->getCruise();
     $ports = $this->managerModel->getPorts();
     $rooms = $this->managerModel->getRooms();
 

@@ -1,9 +1,14 @@
 {
   "devDependencies": {
-    "tailwindcss": "^3.2.4",
+    "tailwindcss": "^3.2.7",
     "tailwindcss-plugins": "^0.1.0"
   },
   "dependencies": {
-    "flowbite": "^1.5.5"
+    "@headlessui/vue": "^1.7.12",
+    "@heroicons/vue": "^2.0.16",
+    "@tailwindcss/forms": "^0.5.3",
+    "flowbite": "^1.6.3",
+    "flowbite-datepicker": "^1.2.2",
+    "jquery": "^3.6.3"
   }
 }

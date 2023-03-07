@@ -36,6 +36,10 @@
         <input type="float" name="price" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
     </div>
     <div>
+        <label for="itinerary" class="block mb-2 text-sm font-medium text-gray-900 ">itinerary</label>
+        <input type="text" name="itinerary" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
+    </div>
+    <div>
         <label for="destination" class="block mb-2 text-sm font-medium text-gray-900 ">Destination</label>
         <input type="text" name="destination" class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 ">
     </div>
