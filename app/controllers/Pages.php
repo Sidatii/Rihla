@@ -191,6 +191,7 @@ class Pages extends Controller
         }
 
         return $available_rooms;
+
     }
 
 }
