@@ -292,4 +292,33 @@ class Manager{
         return  $this->db->resultSet();
     }
 
+    public function getRoomsByShip($id){
+        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_ship=:id');
+        $this->db->bind(':id', $id);
+        if ($this->db->resultSet()) {
+            return $this->db->resultSet() ;
+        } else {
+            return false;
+        }
+    }
+
+    public function getBookingsByShip($id_ship){
+        $this->db->query('SELECT b.ID_room, s.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM booking b INNER JOIN ship s ON b.ID_cruise=s.ID_cruise INNER JOIN room r ON r.ID_room=B.ID_room INNER JOIN room_types t WHERE s.ID_ship=:id_ship');
+        $this->db->bind(':id_ship', $id_ship);
+        if ($this->db->resultSet()) {
+            return $this->db->resultSet() ;
+        } else {
+            return false;
+        }
+    }
+
+}
+
+function displayAvailableRooms($start_date, $end_date) {
+    $available_rooms = getAvailableRooms($start_date, $end_date);
+
+    // Display options for available rooms
+    foreach ($available_rooms as $room) {
+        echo '<option value="' . $room->getId() . '">' . $room->getName() . '</option>';
+    }
 }

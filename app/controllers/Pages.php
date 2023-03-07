@@ -3,6 +3,8 @@ class Pages extends Controller
 {
 
     private $managerModel;
+    private $roomModel;
+    private $bookingModel;
 
     public function __construct()
     {
@@ -76,8 +78,8 @@ class Pages extends Controller
     public function cruiseInfos($id)
     {
         $res = $this->managerModel->cruiseInfos($id);
-
-        $room = $this->managerModel->rooms($res[0]->ID_ship);
+        $room = $this->getAvailableRooms($res[0]->ID_ship);
+//        $room = $this->managerModel->rooms($res[0]->ID_ship);
 //    var_dump($res);
 //    die();
 
@@ -154,6 +156,41 @@ class Pages extends Controller
         ];
         echo json_encode($data);
         die();
+    }
+
+    public function getAvailableRooms($id_ship)
+    {
+        // Get all rooms
+        $all_rooms = $this->managerModel->getRoomsByShip($id_ship);
+        if (empty($all_rooms)) {
+            $all_rooms = array();
+        }
+
+        $bookings = $this->managerModel->getBookingsByShip($id_ship);
+        if (empty($bookings)) {
+            $bookings = array();
+        }
+
+        // Filter out booked rooms
+        $booked_rooms = $bookings;
+//        var_dump($booked_rooms);
+//        die();
+//        foreach ($bookings as $booking) {
+////            if (($start_date >= $booking->getStartDate() && $start_date <= $booking->getEndDate()) || ($end_date >= $booking->getStartDate() && $end_date <= $booking->getEndDate())) {
+//                $booked_rooms[] = $booking;
+////            }
+//        }
+//        var_dump($bookings);
+//        die();
+
+        $available_rooms = array();
+        foreach ($all_rooms as $room) {
+            if (!in_array($room, $booked_rooms)) {
+                $available_rooms[] = $room;
+            }
+        }
+
+        return $available_rooms;
     }
 
 }
