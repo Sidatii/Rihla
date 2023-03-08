@@ -7,5 +7,3 @@
         font-family: 'Montserrat Alternates', sans-serif;
     }
 }
-
-@media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }

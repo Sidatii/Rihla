@@ -322,6 +322,16 @@ class Manager{
         }
     }
 
+    public function addItinerary($data){
+        foreach ($data as $port){
+        $this->db->query('INSERT INTO `itinerary`(`ID_cruise`, `ID_port`) VALUES (:idc,:idp)');
+        $this->db->bind(':idc', $data['idc']);
+        $this->db->bind(':idp', $data['idp']);
+        $this->db->execute();
+        }
+        return true;
+    }
+
 }
 
 
