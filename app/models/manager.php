@@ -76,9 +76,6 @@ class Manager{
 
     public function cruiseInfos($id){
         $this->db->query('SELECT * FROM cruiseInfo WHERE ID_croisere = :id');
-        // You are here
-        // ############################################
-        // You are here
         $this->db->bind(':id', $id);
         $booking = $this->db->resultSet();
         if($this->db->rowCount() > 0){
@@ -315,13 +312,16 @@ class Manager{
         }
     }
 
-}
-
-function displayAvailableRooms($start_date, $end_date) {
-    $available_rooms = getAvailableRooms($start_date, $end_date);
-
-    // Display options for available rooms
-    foreach ($available_rooms as $room) {
-        echo '<option value="' . $room->getId() . '">' . $room->getName() . '</option>';
+    public function getRoomById($id){
+        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_room=:id');
+        $this->db->bind(':id', $id);
+        if ($this->db->resultSet()) {
+            return $this->db->resultSet() ;
+        } else {
+            return false;
+        }
     }
+
 }
+
+

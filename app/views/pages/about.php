@@ -2,22 +2,22 @@
 <?php require APPROOT . '/views/inc/navbar.php'; ?>
 
 <div class="">
-  <div class="px-36 text-[#245BA8] font-semibold text-2xl pt-16 pb-8">
+  <div class="px-4 mx-auto text-[#245BA8] font-semibold text-2xl pt-16 pb-8">
     Rihla as an experience appreciator
   </div>
-  <div class="text text-[#245BA8] px-36 text-xl">
+  <div class="text text-[#245BA8] px-4 mx-auto text-xl">
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem iste consequuntur quaerat pariatur. Praesentium, enim eligendi. Distinctio harum officiis praesentium.
   </div>
-  <div class="mx-36 bg-[#245BA8] text-white bg-contain w-fit m-10 px-4 py-2 rounded-lg">
+  <div class="px-4 mx-auto bg-[#245BA8] text-white bg-contain w-fit m-10 px-4 py-2 rounded-lg">
     <button class=" bg-[#245BA8] text-white bg-contain w-fit flex justify-center text-center">BOOK NOW</button>
   </div>
 </div>
 
 <div class="mt-4 mb-4">
-  <div class="px-36 text-[#245BA8] font-semibold text-2xl pt-4 pb-4">
+  <div class="px-4 mx-auto text-[#245BA8] font-semibold text-2xl pt-4 pb-4">
     Our mission
   </div>
-  <div class="text text-[#245BA8] px-36 text-xl">
+  <div class="text text-[#245BA8] px-4 mx-auto text-xl">
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem iste consequuntur quaerat pariatur. Praesentium, enim eligendi. Distinctio harum officiis praesentium.
   </div>
 </div>

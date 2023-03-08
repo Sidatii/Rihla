@@ -4,7 +4,7 @@
 
 const paginationNumbers = document.getElementById("pagination-numbers");
 const paginatedList = document.getElementById("paginated-list");
-const listItems = document.getElementsByClassName("listItems");
+const listItems = document.querySelectorAll(".listItems");
 const nextButton = document.getElementById("next-button");
 const prevButton = document.getElementById("prev-button");
 const paginationLimit = 3;

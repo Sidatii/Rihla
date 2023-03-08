@@ -96,7 +96,10 @@ class Pages extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $room = filter_input_array(INPUT_POST);
             $data = $this->managerModel->cruiseInfos($id);
-            $price = $data[0]->room_price * 1.4;
+//            var_dump($room['room']);
+//            die();
+            $roomById = $this->managerModel->getRoomById($room['room']);
+            $price = $roomById[0]->room_price * 1.4;
             $ID_user = $_SESSION['user_id'];
             if ($this->managerModel->book($id, $ID_user, $price, $room['room'])) {
                 Flash('flash', 'Your ticket has been booked');
