@@ -27,7 +27,7 @@
             <div class="listItems max-w-7xl flex-col gap-4 md:flex md:flex-row md:justify-center border-gray-200 shadow-lg rounded p-4">
                 <div class="md:w-[200px] w-[300px]">
                     <img class="rounded-t-lg object-fit h-full" style="aspect-ratio: 9/5"
-                         src="<?php echo URLROOT . '/public/img/' . $cruise->image; ?>" alt=""/>
+                         src="<?php echo URLROOT . '/public/img/' . $cruise[0]->image; ?>" alt=""/>
                 </div>
                 <div class="w-[300px] flex flex-col justify-center text-center">
                     <h3 class="text-md bold"><?php echo $cruise->name; ?></h1>

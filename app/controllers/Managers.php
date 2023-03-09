@@ -67,15 +67,24 @@ class Managers extends Controller
   public function addCruise()
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $_POST = filter_input_array(INPUT_POST);
-      $data = $_POST;
-    }
-    $data['img'] = $_FILES["image"]["name"];
-    
-    if($this->managerModel->addCruise($data)){
-      move_uploaded_file($_FILES["image"]["tmp_name"], "./img/" . $data['img']);
-      Flash('cruise_added','Your cruise has been added successfully');
-      redirect('Managers/cruises');
+        $_POST = filter_input_array(INPUT_POST);
+        $data = $_POST;
+
+//        var_dump($_POST['itinerary']);
+//        die();
+        $data['img'] = $_FILES["image"]["name"];
+
+        if ($this->managerModel->addCruise($data)) {
+            $lastIId = $this->managerModel->getLastId()->LastId;
+
+            foreach ($_POST['itinerary'] as $itinerary) {
+                $this->managerModel->addItinerary($lastIId, $itinerary);
+            }
+
+            move_uploaded_file($_FILES["image"]["tmp_name"], "./img/" . $data['img']);
+            Flash('cruise_added', 'Your cruise has been added successfully');
+            redirect('Managers/cruises');
+        }
     }
     
   }

@@ -266,46 +266,15 @@ const filterByShip = (ship) => {
 }
 
 
-let count = 2;
-
-function addCruisesinput(i) {
-    return `
-        <div class="position-relative d-flex align-items-center" id="cruiseitinery${i}">
-            <select class="form-control" name="cruiseitinery${i}">
-                <option disabled>PORT ${i}</option>
-                    <option selected="selected" value="" disabled></option>
-                    <?php foreach($data['ports'] as $port) :?>
-                        <option value="<?=$port->ID_port;?>"><?=$port->name;?></option>
-                    <?php endforeach;?>
-            </select>
-            <i class="fa-solid fa-x cursor-pointer p-2 text-danger position-absolute" onclick="removePortInput(${i})" style="right:5px; "></i>
-        </div>`
-}
-
 function AddPortInput() {
-    let item = document.createElement("div");
-    item.className = "my-1";
-    item.innerHTML += (addCruisesinput(count));
-    addCruisescnt.appendChild(item);
-    count++;
+    const input = document.getElementById('cruiseitinery');
+    const newPort = document.createElement('select')
+    newPort.innerHTML = input.innerHTML;
+    newPort.classList.add('my-2')
+    newPort.setAttribute('name', 'itinerary[]')
+    document.getElementById('iteneryInput').append(newPort);
 }
 
-function removePortInput(id) {
-    let tmp;
-    count--;
-    let idTmp = id + 1;
 
-    const elem = document.getElementById(`cruiseitinery${id}`);
-    elem.parentNode.removeChild(elem);
-
-    while (tmp = document.getElementById(`cruiseitinery${idTmp}`)) {
-        tmp.id = `cruiseitinery${idTmp - 1}`;
-        tmp.firstElementChild.name = `cruiseitinery${idTmp - 1}`;
-        tmp.lastElementChild.setAttribute("onClick", `javascript: removePortInput(${idTmp - 1});`);
-        //  = `cruiseitinery${idTmp - 1}`;
-        idTmp++;
-    }
-    // addCruisescnt.removeChild(elem);
-}
 
 
