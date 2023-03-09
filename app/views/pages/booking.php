@@ -27,7 +27,7 @@
             <div class="listItems max-w-7xl flex-col gap-4 md:flex md:flex-row md:justify-center border-gray-200 shadow-lg rounded p-4">
                 <div class="md:w-[200px] w-[300px]">
                     <img class="rounded-t-lg object-fit h-full" style="aspect-ratio: 9/5"
-                         src="<?php echo URLROOT . '/public/img/' . $cruise[0]->image; ?>" alt=""/>
+                         src="<?php echo URLROOT . '/public/img/' . $cruise->image; ?>" alt=""/>
                 </div>
                 <div class="w-[300px] flex flex-col justify-center text-center">
                     <h3 class="text-md bold"><?php echo $cruise->name; ?></h1>
@@ -35,8 +35,12 @@
                     <ul>
                         <li class="text-sm">Departure port: <?php echo $cruise->port_name; ?></li>
                         <li class="text-sm">Nights: <?php echo $cruise->nights_number; ?></li>
-                        <li class="text-sm">Itinerary: <?php echo $cruise->itinerary; ?></li>
                         <li class="text-sm">Destination: <?php echo $cruise->distination; ?></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul id="trajectory+'<?= $cruise->ID_croisere?>'" class="flex flex-col gap-2">
+
                     </ul>
                 </div>
                 <div class="md:w-[200px] flex flex-col gap-2 justify-center ">

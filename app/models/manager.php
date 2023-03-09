@@ -16,10 +16,9 @@ class Manager{
         return  $this->db->resultSet();
     }
     public function getCruises(){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays, i.ID_port AS trajectory
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
                         FROM cruise c
                         INNER JOIN port p ON c.ID_port=p.ID_port
-                        JOIN trajectory i ON c.ID_croisere=i.ID_cruise
                         WHERE c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
 
@@ -332,6 +331,17 @@ class Manager{
     public function getLastId(){
         $this->db->query('SELECT MAX(ID_croisere) as LastId FROM cruise');
         return $this->db->single();
+    }
+
+
+    public function getTrajectoryById($id){
+        $this->db->query('SELECT t.ID_cruise, t.ID_port, p.name as p.port_name, p.pays FROM trajectory t INNER JOIN port p ON t.ID_port=p.ID_port WHERE t.ID_cruise=:id');
+        $this->db->bind(':id', $id);
+        if ($this->db->resultSet()) {
+            return $this->db->resultSet() ;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -266,6 +266,11 @@ const filterByShip = (ship) => {
 }
 
 
+
+$(document).ready(function () {
+
+    getTrajectoryById()
+})
 function AddPortInput() {
     const input = document.getElementById('cruiseitinery');
     const newPort = document.createElement('select')
@@ -273,6 +278,29 @@ function AddPortInput() {
     newPort.classList.add('my-2')
     newPort.setAttribute('name', 'itinerary[]')
     document.getElementById('iteneryInput').append(newPort);
+}
+
+const getTrajectoryById = (id) => {
+    $.ajax({
+        type: "POST",
+        url: `http://localhost/Rihla/pages/getTrajectoryById/${id}`,
+        data: {
+            'action': 'detail',
+            'value': id
+        }
+        ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            result = data.trajectory;
+            console.log(result)
+            const container = document.getElementById('trajectory'+id);
+            result.forEach((item) => {
+                container.appendChild(`<li value="${item.ID_port}">${item.port_name}</li>`)
+            })
+
+        }
+    })
 }
 
 

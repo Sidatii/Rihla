@@ -197,4 +197,13 @@ class Pages extends Controller
 
     }
 
+    public function getTrajectoryById($id){
+        $result = $this->managerModel->getTrajectoryById($id);
+        $data = [
+            'trajectory' => $result
+        ];
+        echo json_encode($data);
+        die();
+    }
+
 }
