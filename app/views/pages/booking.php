@@ -38,10 +38,12 @@
                         <li class="text-sm">Destination: <?php echo $cruise->distination; ?></li>
                     </ul>
                 </div>
-                <div>
-                    <ul id="trajectory+'<?= $cruise->ID_croisere?>'" class="flex flex-col gap-2">
-
-                    </ul>
+                <div class="w-[300px] flex flex-col justify-center text-center">
+                    Trajectory:
+                    <ul>
+                        <?php foreach ($cruise->trajectory as $trajectory):?>
+                        <li class="text-sm"><?php echo $trajectory->port_name; ?></li>
+                        <?php endforeach;?>
                 </div>
                 <div class="md:w-[200px] flex flex-col gap-2 justify-center ">
                     <div class="block text-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"

@@ -32,6 +32,9 @@ class Pages extends Controller
     public function booking()
     {
         $cruises = $this->managerModel->getCruises();
+        foreach ($cruises as $cruise => $value){
+            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_croisere);
+        }
         $ports = $this->managerModel->getPorts();
         $ships = $this->managerModel->getShips();
         $data = [

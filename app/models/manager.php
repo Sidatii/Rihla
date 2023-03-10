@@ -268,21 +268,20 @@ class Manager{
     }
 
     public function filterByPort($port){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number, p.name as port_name, p.pays  
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
                         INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
-                        INNER JOIN port p ON c.ID_port=p.ID_port
-                        where c.ID_port = :port AND c.departure_date > CURRENT_TIMESTAMP
+                        where c.ID_port = :port 
+                        AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
         $this->db->bind(':port', $port);
         return  $this->db->resultSet();
     }
 
     public function filterByShip($ship){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  , p.name as port_name, p.pays
+        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
                         INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
-                        INNER JOIN port p ON c.ID_port=p.ID_port
                         where s.ID_ship = :ship
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date DESC');
@@ -335,7 +334,7 @@ class Manager{
 
 
     public function getTrajectoryById($id){
-        $this->db->query('SELECT t.ID_cruise, t.ID_port, p.name as p.port_name, p.pays FROM trajectory t INNER JOIN port p ON t.ID_port=p.ID_port WHERE t.ID_cruise=:id');
+        $this->db->query('SELECT t.ID_cruise, t.ID_port, p.name as port_name, p.pays FROM trajectory t INNER JOIN port p ON t.ID_port=p.ID_port WHERE t.ID_cruise=:id');
         $this->db->bind(':id', $id);
         if ($this->db->resultSet()) {
             return $this->db->resultSet() ;

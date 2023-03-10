@@ -266,11 +266,6 @@ const filterByShip = (ship) => {
 }
 
 
-
-$(document).ready(function () {
-
-    getTrajectoryById()
-})
 function AddPortInput() {
     const input = document.getElementById('cruiseitinery');
     const newPort = document.createElement('select')
