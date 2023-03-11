@@ -213,9 +213,9 @@ class Manager{
     }
 
     public function filterByMonth($month){
-        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_ship=s.ID_ship
+                        INNER JOIN port p ON c.ID_port=p.ID_port
                         where MONTH(c.departure_date) = :month
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
@@ -224,10 +224,10 @@ class Manager{
     }
 
     public function filterByPort($port){
-        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_ship=s.ID_ship
-                        WHERE where c.ID_port = :port 
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        WHERE c.ID_port = :port 
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
         $this->db->bind(':port', $port);

@@ -139,9 +139,12 @@ class Pages extends Controller
     public function filterByMonth($month){
 //        var_dump($_POST)
         $month = explode('-',$month)[1];
-        $result = $this->managerModel->filterByMonth($month);
+        $cruises = $this->managerModel->filterByMonth($month);
+        foreach ($cruises as $cruise => $value){
+            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_cruise);
+        }
         $data = [
-            'cruises' => $result
+            'cruises' => $cruises
         ];
 
         echo json_encode($data);
@@ -149,9 +152,12 @@ class Pages extends Controller
     }
 
     public function filterByPort($port){
-        $result = $this->managerModel->filterByPort($port);
+        $cruises = $this->managerModel->filterByPort($port);
+        foreach ($cruises as $cruise => $value){
+            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_cruise);
+        }
         $data = [
-            'cruises' => $result
+            'cruises' => $cruises
         ];
         echo json_encode($data);
         die();

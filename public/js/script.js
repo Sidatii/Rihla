@@ -109,15 +109,9 @@ const handlePageButtonsStatus = () => {
 const filterByMonth = (month) => {
     // console.log(month)
     $.ajax({
-        type: "POST",
-        url: `http://localhost/Rihla/pages/filterByMonth/${month}`,
-        data: {
-            'action': 'detail',
-            'value': month
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
+        type: "POST", url: `http://localhost/Rihla/pages/filterByMonth/${month}`, data: {
+            'action': 'detail', 'value': month
+        }, contentType: "application/json; charset=utf-8", dataType: "json", success: function (data) {
             result = data.cruises;
             const container = document.getElementById('paginated-list');
             container.innerHTML = "";
@@ -139,12 +133,18 @@ const filterByMonth = (month) => {
                         <li class="text-sm">Destination: ${item.distination}</li>
                     </ul>
                 </div>
+                <div class="w-[300px] flex flex-col justify-center text-center">
+                    Trajectory:
+                    <ul id="trajectory">
+                        
+                    </ul>   
+                </div>
                 <div class="md:w-[200px] flex flex-col gap-2 justify-center ">
                     <div class="block text-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
                          type="button">
                         Dh ${item.price}
                     </div>
-                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_croisere}'
+                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_cruise}'
                        class="flex justify-center">
                         <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 text-center w-fit mb-2"
                                 type="button">
@@ -152,8 +152,13 @@ const filterByMonth = (month) => {
                         </button>
                     </a>
                 </div>
-            </div>
-                `
+            </div>`
+                const traject = document.getElementById('trajectory');
+                for (let i = 0; i < item.trajectory.length; i++) {
+                    const trajectory = item.trajectory[i];
+
+                    traject.innerHTML += `<li class="text-sm">${trajectory.port_name}</li>`
+                }
             }
         }
     })
@@ -161,15 +166,9 @@ const filterByMonth = (month) => {
 
 const filterByPort = (port) => {
     $.ajax({
-        type: "POST",
-        url: `http://localhost/Rihla/pages/filterByPort/${port}`,
-        data: {
-            'action': 'detail',
-            'value': port
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
+        type: "POST", url: `http://localhost/Rihla/pages/filterByPort/${port}`, data: {
+            'action': 'detail', 'value': port
+        }, contentType: "application/json; charset=utf-8", dataType: "json", success: function (data) {
             let result = data.cruises;
             console.log(result)
             const container = document.getElementById('paginated-list');
@@ -192,12 +191,18 @@ const filterByPort = (port) => {
                         <li class="text-sm">Destination: ${item.distination}</li>
                     </ul>
                 </div>
+                <div class="w-[300px] flex flex-col justify-center text-center">
+                    Trajectory:
+                    <ul id="trajectory">
+                        
+                    </ul>   
+                </div>
                 <div class="md:w-[200px] flex flex-col gap-2 justify-center ">
                     <div class="block text-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
                          type="button">
                         Dh ${item.price}
                     </div>
-                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_croisere}'
+                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_cruise}'
                        class="flex justify-center">
                         <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 text-center w-fit mb-2"
                                 type="button">
@@ -206,6 +211,11 @@ const filterByPort = (port) => {
                     </a>
                 </div>
             </div>`
+                const traject = document.getElementById('trajectory');
+                for (let i = 0; i < item.trajectory.length; i++) {
+                    const trajectory = item.trajectory[i];
+                    traject.innerHTML += `<li class="text-sm">${trajectory.port_name}</li>`
+                }
             }
         }
     })
@@ -214,16 +224,9 @@ const filterByPort = (port) => {
 
 const filterByShip = (ship) => {
     $.ajax({
-        type: "POST",
-        url: `http://localhost/Rihla/pages/filterByShip/${ship}`,
-        data: {
-            'action': 'detail',
-            'value': ship
-        }
-        ,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
+        type: "POST", url: `http://localhost/Rihla/pages/filterByShip/${ship}`, data: {
+            'action': 'detail', 'value': ship
+        }, contentType: "application/json; charset=utf-8", dataType: "json", success: function (data) {
             result = data.cruises;
             console.log(result)
             const container = document.getElementById('paginated-list');
@@ -288,16 +291,9 @@ function AddPortInput() {
 
 const getTrajectoryById = (id) => {
     $.ajax({
-        type: "POST",
-        url: `http://localhost/Rihla/pages/getTrajectoryById/${id}`,
-        data: {
-            'action': 'detail',
-            'value': id
-        }
-        ,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
+        type: "POST", url: `http://localhost/Rihla/pages/getTrajectoryById/${id}`, data: {
+            'action': 'detail', 'value': id
+        }, contentType: "application/json; charset=utf-8", dataType: "json", success: function (data) {
             result = data.trajectory;
             console.log(result)
             const container = document.getElementById('trajectory' + id);
@@ -308,7 +304,13 @@ const getTrajectoryById = (id) => {
         }
     })
 }
+$(document).ready(function () {
+    document.getElementById('confirmBooking').disabled = true;
+});
 
+function enableConfirm() {
+    document.getElementById('confirmBooking').disabled = false;
+}
 
 
 
