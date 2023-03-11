@@ -76,23 +76,20 @@ class Manager{
     }
 
     public function getRooms(){
-        $this->db->query('SELECT distinct room_type, capacity, room_price FROM room inner join room_types on room.ID_type = room_types.ID_type');
+        $this->db->query('SELECT r.ID_room, r.room_price, t.room_type, t.capacity, s.ship_name  FROM room r INNER JOIN room_types t on r.ID_type = t.ID_type INNER JOIN ship s ON r.ID_ship=s.ID_ship');
 
         $results = $this->db->resultSet();
 
         return $results;
     }
 
-//    public function cruiseInfos($id){
-//        $this->db->query('SELECT * FROM cruiseInfo WHERE ID_cruise = :id');
-//        $this->db->bind(':id', $id);
-//        $booking = $this->db->resultSet();
-//        if($this->db->rowCount() > 0){
-//            return $booking;
-//        }else{
-//            return false;
-//        }
-//    }
+    public function getRoomTypes(){
+        $this->db->query('SELECT * FROM room_types');
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
 
     public function getBookings($id){
         $this->db->query('SELECT * FROM ticket WHERE ID_user = :id');
@@ -111,6 +108,28 @@ class Manager{
         $rooms = $this->db->resultSet();
         if($this->db->rowCount() > 0){
             return $rooms;
+        }else{
+            return false;
+        }
+    }
+
+    public function addRoom($data){
+        $this->db->query('INSERT INTO room (ID_type, ID_ship, room_price) VALUES(:type, :ship, :price)');
+        $this->db->bind(':type', $data['type']);
+        $this->db->bind(':ship', $data['ship']);
+        $this->db->bind(':price', $data['price']);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteRoom($id){
+        $this->db->query('DELETE FROM room WHERE ID_room = :id');
+        $this->db->bind(':id', $id);
+        if($this->db->execute()){
+            return true;
         }else{
             return false;
         }

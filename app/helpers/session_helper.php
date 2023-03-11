@@ -6,7 +6,7 @@ session_start();
 
 // Flash message helper
 // Example - 
-function Flash($name = '', $message = '', $class = 'flex items-center p-2 w-full max-w-xs text-gray-500 bg-green-100 text-center rounded-sm shadow font-light')
+function Flash($name = '', $message = '', $class = 'flex items-center p-2 w-fit max-w-xs text-gray-500 bg-green-100 text-center rounded-sm shadow font-light')
 {
     if (!empty($name)) {
         if (!empty($message) && empty($_SESSION[$name])) {

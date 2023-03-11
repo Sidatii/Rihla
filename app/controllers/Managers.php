@@ -166,6 +166,41 @@ class Managers extends Controller
         }
 
     }
+
+    public function addRoomPage()
+    {
+        $ships = $this->managerModel->getShips();
+        $types = $this->managerModel->getRoomTypes();
+        $data = [
+            'ships' => $ships,
+            'types' => $types
+        ];
+
+        $this->view('managers/addRoom', $data);
+    }
+
+    public function addRoom()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_POST = filter_input_array(INPUT_POST);
+            $data = $_POST;
+            if ($this->managerModel->addRoom($data)) {
+                Flash('flash', 'Your room has been added successfully');
+                redirect('Managers/features');
+            }
+        }
+    }
+
+    public function deleteRoom($id)
+    {
+        if ($this->managerModel->deleteRoom($id)) {
+            Flash('flash', 'Your room has been deleted');
+            redirect('managers/features');
+
+        }
+
+    }
+
 }
 
 
