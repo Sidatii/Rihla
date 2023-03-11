@@ -32,9 +32,9 @@ class Pages extends Controller
     public function booking()
     {
         $cruises = $this->managerModel->getCruises();
-        foreach ($cruises as $cruise => $value){
-            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_croisere);
-        }
+//        foreach ($cruises as $cruise => $value){
+//            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_cruise);
+//        }
         $ports = $this->managerModel->getPorts();
         $ships = $this->managerModel->getShips();
         $data = [
@@ -80,8 +80,8 @@ class Pages extends Controller
 
     public function cruiseInfos($id)
     {
-        $res = $this->managerModel->cruiseInfos($id);
-        $room = $this->getAvailableRooms($res[0]->ID_ship);
+        $res = $this->managerModel->getCruise($id);
+        $room = $this->getAvailableRooms($res->ID_ship);
 //        $room = $this->managerModel->rooms($res[0]->ID_ship);
 //    var_dump($res);
 //    die();
@@ -90,6 +90,8 @@ class Pages extends Controller
             'cruise' => $res,
             'rooms' => $room
         ];
+//        var_dump($data['cruise']);
+//        die();
 
         $this->view('Pages/cruiseInfos', $data);
     }
@@ -98,7 +100,7 @@ class Pages extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $room = filter_input_array(INPUT_POST);
-            $data = $this->managerModel->cruiseInfos($id);
+            $data = $this->managerModel->getCruise($id);
 //            var_dump($room['room']);
 //            die();
             $roomById = $this->managerModel->getRoomById($room['room']);
@@ -156,9 +158,12 @@ class Pages extends Controller
     }
 
     public function filterByShip($ship){
-        $result = $this->managerModel->filterByShip($ship);
+        $cruises = $this->managerModel->filterByShip($ship);
+        foreach ($cruises as $cruise => $value){
+            $cruises[$cruise]->trajectory = $this->managerModel->getTrajectoryById($value->ID_cruise);
+        }
         $data = [
-            'cruises' => $result
+            'cruises' => $cruises
         ];
         echo json_encode($data);
         die();

@@ -3,7 +3,7 @@
 
     <div class="md:flex items-start justify-center py-12 2xl:px-20 md:px-6 px-4">
         <div class="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
-            <img class="mt-6 w-full" alt="" src="<?= URLROOT . 'public/img/' . $data['cruise'][0]->image; ?>"/>
+            <img class="mt-6 w-full" alt="" src="<?= URLROOT . 'public/img/' . $data['cruise']->image; ?>"/>
         </div>
         <div class="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
             <div class="border-b border-gray-200 pb-6">
@@ -12,50 +12,52 @@
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4 ">Name</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none"><?= $data['cruise'][0]->name; ?></p>
+                    <p class="text-sm leading-none"><?= $data['cruise']->name; ?></p>
 
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4 text-gray-800 ">Departure date</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->departure_date; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->departure_date; ?></p>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4 text-gray-800 ">Itinerary</p>
-                <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->itinerary; ?></p>
+                <div class="flex-col items-center justify-center">
+                    <?php foreach ($data['cruise']->trajectory as $trajectory):?>
+                    <p class="text-sm leading-none mr-3"><?= $trajectory->port_name ?></p>
+                    <?php endforeach;?>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4">Distination</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->distination; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->distination; ?></p>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4">Nights count</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->nights_number; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->nights_number; ?></p>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4 ">Departure port</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->port_name; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->port_name; ?></p>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4 ">Ship name</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->ship_name; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->ship_name; ?></p>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
                 <p class="text-base leading-4">Price</p>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm leading-none mr-3"><?= $data['cruise'][0]->price; ?></p>
+                    <p class="text-sm leading-none mr-3"><?= $data['cruise']->price; ?></p>
                 </div>
             </div>
         </div>
@@ -91,7 +93,7 @@
         </th>
     </tr>
     </thead>
-        <form action="<?php echo URLROOT . 'Pages/book/' . $data['cruise'][0]->ID_croisere; ?>" method="POST">
+        <form action="<?php echo URLROOT . 'Pages/book/' . $data['cruise']->ID_cruise; ?>" method="POST">
             <tbody>
             <?php foreach ($data['rooms'] as $room) : ?>
                 <tr class="bg-white border-b">

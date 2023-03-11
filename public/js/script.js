@@ -242,16 +242,21 @@ const filterByShip = (ship) => {
                     <ul>
                         <li class="text-sm">Departure port:${item.port_name}</li>
                         <li class="text-sm">Nights: ${item.nights_number}</li>
-                        <li class="text-sm">Itinerary: ${item.itinerary}</li>
                         <li class="text-sm">Destination: ${item.distination}</li>
                     </ul>
+                </div>
+                <div class="w-[300px] flex flex-col justify-center text-center">
+                    Trajectory:
+                    <ul id="trajectory">
+                        
+                    </ul>   
                 </div>
                 <div class="md:w-[200px] flex flex-col gap-2 justify-center ">
                     <div class="block text-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
                          type="button">
                         Dh ${item.price}
                     </div>
-                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_croisere}'
+                    <a href='http://localhost/Rihla/pages/cruiseInfos/${item.ID_cruise}'
                        class="flex justify-center">
                         <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 text-center w-fit mb-2"
                                 type="button">
@@ -260,6 +265,12 @@ const filterByShip = (ship) => {
                     </a>
                 </div>
             </div>`
+                const traject = document.getElementById('trajectory');
+                for (let i = 0; i < item.trajectory.length; i++) {
+                    const trajectory = item.trajectory[i];
+
+                    traject.innerHTML += `<li class="text-sm">${trajectory.port_name}</li>`
+                }
             }
         }
     })
@@ -270,7 +281,7 @@ function AddPortInput() {
     const input = document.getElementById('cruiseitinery');
     const newPort = document.createElement('select')
     newPort.innerHTML = input.innerHTML;
-    newPort.classList.add('my-2')
+    newPort.classList.add("my-2")
     newPort.setAttribute('name', 'itinerary[]')
     document.getElementById('iteneryInput').append(newPort);
 }
@@ -289,7 +300,7 @@ const getTrajectoryById = (id) => {
         success: function (data) {
             result = data.trajectory;
             console.log(result)
-            const container = document.getElementById('trajectory'+id);
+            const container = document.getElementById('trajectory' + id);
             result.forEach((item) => {
                 container.appendChild(`<li value="${item.ID_port}">${item.port_name}</li>`)
             })

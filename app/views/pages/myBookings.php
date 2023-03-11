@@ -98,4 +98,4 @@
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
-<!-- ALTER VIEW `bookingdetails` AS SELECT b.ID_booking, b.ID_cruise, b.booking_date, b.booking_price, b.ID_user, b.ID_room, c.name, c.price, c.nights_number, c.image, c.departure_date, c.distination, r.ID_ship, r.room_price, t.room_type, t.capacity, p.name, p.pays FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_croisere INNER JOIN port p ON c.ID_port=p.ID_port INNER JOIN room r ON b.ID_room = r.ID_room INNER JOIN room_types t ON r.ID_type=t.ID_type -->
+<!-- ALTER VIEW `bookingdetails` AS SELECT b.ID_booking, b.ID_cruise, b.booking_date, b.booking_price, b.ID_user, b.ID_room, c.name, c.price, c.nights_number, c.image, c.departure_date, c.distination, r.ID_ship, r.room_price, t.room_type, t.capacity, p.name, p.pays FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_cruise INNER JOIN port p ON c.ID_port=p.ID_port INNER JOIN room r ON b.ID_room = r.ID_room INNER JOIN room_types t ON r.ID_type=t.ID_type -->

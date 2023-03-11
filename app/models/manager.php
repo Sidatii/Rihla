@@ -7,24 +7,32 @@ class Manager{
         $this->db = new Database;
     }
 
-    public function getCruise(){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+    public function getCruise($id){
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, p.name as port_name, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
-                        WHERE c.departure_date > CURRENT_TIMESTAMP
+                        INNER JOIN ship s ON c.ID_ship=s.ID_ship
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        WHERE c.ID_cruise = :id
+                        AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
-        return  $this->db->resultSet();
+        $this->db->bind(':id', $id);
+        $cruise = $this->db->single();
+        $cruise->trajectory = $this->getTrajectoryById($cruise->ID_cruise);
+
+        return  $cruise;
     }
     public function getCruises(){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
                         FROM cruise c
                         INNER JOIN port p ON c.ID_port=p.ID_port
                         WHERE c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
+        $cruises = $this->db->resultSet();
+        foreach ($cruises as $cruise => $value){
+            $cruises[$cruise]->trajectory = $this->getTrajectoryById($value->ID_cruise);
+        }
 
-        $results = $this->db->resultSet();
-
-        return $results;
+        return $cruises;
     }
 
     public function getShipById($id){
@@ -75,19 +83,19 @@ class Manager{
         return $results;
     }
 
-    public function cruiseInfos($id){
-        $this->db->query('SELECT * FROM cruiseInfo WHERE ID_croisere = :id');
-        $this->db->bind(':id', $id);
-        $booking = $this->db->resultSet();
-        if($this->db->rowCount() > 0){
-            return $booking;
-        }else{
-            return false;
-        }
-    }
+//    public function cruiseInfos($id){
+//        $this->db->query('SELECT * FROM cruiseInfo WHERE ID_cruise = :id');
+//        $this->db->bind(':id', $id);
+//        $booking = $this->db->resultSet();
+//        if($this->db->rowCount() > 0){
+//            return $booking;
+//        }else{
+//            return false;
+//        }
+//    }
 
     public function getBookings($id){
-        $this->db->query('SELECT * FROM bookingDetails WHERE ID_user = :id');
+        $this->db->query('SELECT * FROM ticket WHERE ID_user = :id');
         $this->db->bind(':id', $id);
         $booking = $this->db->resultSet();
         if($this->db->rowCount() > 0){
@@ -123,7 +131,7 @@ class Manager{
     }
 
     public function bookingList($id){
-        $this->db->query('SELECT * FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_croisere WHERE ID_booking=:id');
+        $this->db->query('SELECT * FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_cruise WHERE ID_booking=:id');
         $this->db->bind(':id', $id);
         return $this->db->resultSet();
     }
@@ -139,7 +147,7 @@ class Manager{
     }
 
     public function addCruise($data){
-        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`, `distination`) VALUES(:name,:price,:image,:nights,:depPort,:depDate,  :dest)');
+        $this->db->query('INSERT INTO `cruise`(`name`, `price`, `image`, `nights_number`, `ID_port`, `departure_date`, `ID_ship`, `distination`) VALUES(:name,:price,:image,:nights,:depPort, :depDate, :ids,  :dest)');
 
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':price', $data['price']);
@@ -147,6 +155,7 @@ class Manager{
         $this->db->bind(':nights', $data['nights']);
         $this->db->bind(':depPort', $data['depPort']);
         $this->db->bind(':depDate', $data['date']);
+        $this->db->bind(':ids', $data['ship']);
         $this->db->bind(':dest', $data['destination']);
 
         return $this->db->execute();
@@ -161,43 +170,8 @@ class Manager{
         return $this->db->execute();
     }
 
-    public function updateCruise($data){
-
-        if (empty($data['img'])) {
-        
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`price`=:price,`ID_port`=:idd, `distination`=:dest WHERE `ID_croisere`=:id');
-            
-            $this->db->bind(':name', $data['name']);
-            $this->db->bind(':date', $data['date']);
-            $this->db->bind(':nbr', $data['nights']);
-            $this->db->bind(':price', $data['price']);
-            $this->db->bind(':idd', $data['depPort']);
-            $this->db->bind(':id', $data['id']);
-            $this->db->bind(':dest', $data['destination']);
-            
-            $this->db->execute();
-            return true;
-            
-        }else{
-            $this->db->query('UPDATE `cruise` SET `name`= :name ,`departure_date`= :date,`nights_number`=:nbr,`Price`=:price,`ID_port`=:idd,`image`=:img, `distination`=:dest WHERE `ID_croisere`=:id');
-    
-            $this->db->bind(':name', $data['name']);
-            $this->db->bind(':date', $data['date']);
-            $this->db->bind(':nbr', $data['nights']);
-            $this->db->bind(':price', $data['price']);
-            $this->db->bind(':idd', $data['depPort']);
-            $this->db->bind(':img', $data['img']);
-            $this->db->bind(':dest', $data['destination']);
-            $this->db->bind(':id', $data['id']);
-    
-            $this->db->execute();
-            return true;
-        }
-
-    }
-
     public function delete($id){
-        $this->db->query('DELETE FROM cruise WHERE ID_croisere=:id');
+        $this->db->query('DELETE FROM cruise WHERE ID_cruise=:id');
         $this->db->bind('id', $id);
         if($this->db->execute()){
             return true;
@@ -217,34 +191,16 @@ class Manager{
     }
 
     public function addShip($data){
-        $this->db->query('INSERT INTO `ship`(`ship_name`, `rooms_count`, `spots_number`, `ID_cruise`) VALUES (:name,:rooms,:spots,:idc)');
+        $this->db->query('INSERT INTO `ship`(`ship_name`, `rooms_count`, `spots_number`) VALUES (:name,:rooms,:spots)');
         $this->db->bind(':name', $data['ship_name']);
         $this->db->bind(':rooms', $data['rooms_count']);
         $this->db->bind(':spots', $data['spots_count']);
-        $this->db->bind(':idc', $data['IDC']);
 
         return $this->db->execute();
     }
 
-    public function updateShip($data){
-        $this->db->query('UPDATE `ship` SET `ship_name`=:name,`rooms_count`=:rooms,`spots_number`=:spots,`ID_cruise`=:idc WHERE `ID_ship`=:id');
-        $this->db->bind(':name', $data['ship_name']);
-        $this->db->bind(':rooms', $data['rooms_count']);
-        $this->db->bind(':spots', $data['spots_count']);
-        $this->db->bind(':idc', $data['IDC']);
-        $this->db->bind(':id', $data['id']);
 
-        return $this->db->execute();
-    }
 
-    public function updatePort($data){
-        $this->db->query('UPDATE `port` SET `name`=:name,`pays`=:country WHERE `ID_port`=:id');
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':country', $data['country']);
-        $this->db->bind(':id', $data['id']);
-
-        return $this->db->execute();
-    }
 
     public function deletePort($id){
         $this->db->query('DELETE FROM port WHERE ID_port=:id');
@@ -257,9 +213,9 @@ class Manager{
     }
 
     public function filterByMonth($month){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
+                        INNER JOIN ship s ON c.ID_ship=s.ID_ship
                         where MONTH(c.departure_date) = :month
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
@@ -268,10 +224,10 @@ class Manager{
     }
 
     public function filterByPort($port){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
-                        where c.ID_port = :port 
+                        INNER JOIN ship s ON c.ID_ship=s.ID_ship
+                        WHERE where c.ID_port = :port 
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date ASC');
         $this->db->bind(':port', $port);
@@ -279,10 +235,10 @@ class Manager{
     }
 
     public function filterByShip($ship){
-        $this->db->query('SELECT c.ID_croisere, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, s.ID_ship, s.ship_name, s.rooms_count, s.spots_number  
+        $this->db->query('SELECT c.ID_cruise, c.name, c.price, c.image, c.nights_number, c.ID_port, c.departure_date, c.distination, p.name as port_name, p.pays 
                         FROM cruise c
-                        INNER JOIN ship s ON c.ID_croisere=s.ID_cruise
-                        where s.ID_ship = :ship
+                        INNER JOIN port p ON c.ID_port=p.ID_port
+                        where c.ID_ship = :ship
                         AND c.departure_date > CURRENT_TIMESTAMP
                         ORDER BY c.departure_date DESC');
         $this->db->bind(':ship', $ship);
@@ -290,7 +246,7 @@ class Manager{
     }
 
     public function getRoomsByShip($id){
-        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_ship=:id');
+        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_ship=:id');
         $this->db->bind(':id', $id);
         if ($this->db->resultSet()) {
             return $this->db->resultSet() ;
@@ -300,7 +256,7 @@ class Manager{
     }
 
     public function getBookingsByShip($id_ship){
-        $this->db->query('SELECT b.ID_room, s.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM booking b INNER JOIN ship s ON b.ID_cruise=s.ID_cruise INNER JOIN room r ON r.ID_room=B.ID_room INNER JOIN room_types t WHERE s.ID_ship=:id_ship');
+        $this->db->query('SELECT b.ID_room, c.ID_ship, r.room_price, r.ID_type, t.room_type, t.capacity FROM booking b INNER JOIN cruise c ON b.ID_cruise=c.ID_cruise INNER JOIN room r ON r.ID_room=B.ID_room INNER JOIN room_types t WHERE c.ID_ship=:id_ship');
         $this->db->bind(':id_ship', $id_ship);
         if ($this->db->resultSet()) {
             return $this->db->resultSet() ;
@@ -310,7 +266,7 @@ class Manager{
     }
 
     public function getRoomById($id){
-        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, r.is_resrved, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_room=:id');
+        $this->db->query('SELECT r.ID_room, r.ID_ship, r.room_price, r.ID_type, t.room_type, t.capacity FROM room r INNER JOIN room_types t ON r.ID_type=t.ID_type WHERE r.ID_room=:id');
         $this->db->bind(':id', $id);
         if ($this->db->resultSet()) {
             return $this->db->resultSet() ;
@@ -328,7 +284,7 @@ class Manager{
     }
 
     public function getLastId(){
-        $this->db->query('SELECT MAX(ID_croisere) as LastId FROM cruise');
+        $this->db->query('SELECT MAX(ID_cruise) as LastId FROM cruise');
         return $this->db->single();
     }
 

@@ -20,8 +20,9 @@
                placeholder="Select month">
     </form>
 
-
+<center>
 <?php Flash('flash'); ?>
+</center>
     <div id="paginated-list" aria-live="polite" class="flex flex-wrap gap-6 justify-center my-4 w-auto">
         <?php foreach ($data['cruises'] as $cruise) : ?>
             <div class="listItems max-w-7xl flex-col gap-4 md:flex md:flex-row md:justify-center border-gray-200 shadow-lg rounded p-4">
@@ -50,7 +51,7 @@
                          type="button">
                         Dh <?php echo $cruise->price; ?>
                     </div>
-                    <a href="<?php echo URLROOT . 'Pages/cruiseInfos/' . $cruise->ID_croisere; ?>"
+                    <a href="<?php echo URLROOT . 'Pages/cruiseInfos/' . $cruise->ID_cruise; ?>"
                        class="flex justify-center">
                         <button class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-lg text-sm px-5 py-2.5 text-center w-fit mb-2"
                                 type="button">

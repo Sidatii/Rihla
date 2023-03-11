@@ -9,23 +9,27 @@
                 <div>
                     <label for="Cruise_name" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise name</label>
                     <input type="text" name="name"
-                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 " required>
+                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 "
+                           required>
                 </div>
                 <div>
                     <label for="Cruise_date" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise date</label>
                     <input type="date" name="date"
-                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 " required>
+                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 "
+                           required>
                 </div>
                 <div>
                     <label for="Cruise_image" class="block mb-2 text-sm font-medium text-gray-900 ">Cruise image</label>
                     <input type="file" accept="image/*" name="image"
-                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 " required>
+                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 "
+                           required>
                 </div>
                 <div>
                     <label for="Cruise_nights" class="block mb-2 text-sm font-medium text-gray-900 ">Nights
                         count</label>
                     <input type="number" name="nights"
-                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 " required>
+                           class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 "
+                           required>
                 </div>
                 <div>
                     <label for="Cruise_depPort" class="block mb-2 text-sm font-medium text-gray-900 ">Departure
@@ -52,13 +56,24 @@
                         <i class="fa-solid fa-plus fa-xl cursor-pointer" onclick="AddPortInput()"></i>
                     </div>
                     <div class="flex" id="addCruisescnt">
-                        <select class="form-control w-full" name="itinerary[]" id="cruiseitinery">
+                        <select class="form-control w-full block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500" name="itinerary[]" id="cruiseitinery">
                             <option selected="selected" value="" disabled> Port 1</option>
                             <?php foreach ($data['ports'] as $port) : ?>
                                 <option value="<?= $port->ID_port ?>"> <?= $port->name ?> </option>
                             <?php endforeach ?>
                         </select>
                     </div>
+                </div>
+                <div>
+                    <label for="destination" class="block mb-2 text-sm font-medium text-gray-900 ">Ship</label>
+                    <select name="ship"
+                            class="block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500">
+                        <?php foreach ($data['ships'] as $ship): ?>
+                            <option value="<?php echo $ship->ID_ship ?>">
+                                <?php echo $ship->ship_name ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div>
                     <label for="destination" class="block mb-2 text-sm font-medium text-gray-900 ">Destination</label>
